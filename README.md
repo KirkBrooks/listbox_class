@@ -1,6 +1,6 @@
 <!-- Type your summary here -->
 ## `listbox` class
-This is a 4D database demonstrating the use of a class for managing listboxes containing collection or entity selections. 
+This is a 4D database demonstrating the use of a class for managing listboxes containing collection or entity selections. It is written in v19R4. You can use it in prior versions down to 18R6 but may need to make a few changes.
 
 To use simply instantiate the class with the name of the listbox object.
 
