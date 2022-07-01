@@ -100,10 +100,10 @@ These functions are basically wrappers for the native **4D** functions and are a
 
 | Function                                 | Description                                           |
 | ---------------------------------------- | ----------------------------------------------------- |
-| **sum**($key )->$value**:** **Real**     | Returns sum for specific column.                      |
-| **min**($key )->$value**:** **Real**     |                                                       |
-| **max**($key )->$value**:** **Real**     |                                                       |
-| **average**($key )->$value**:** **Real** |                                                       |
+| **sum**($key )->$value: **Real**     | Returns sum for specific column.                      |
+| **min**($key )->$value: **Real**     |                                                       |
+| **max**($key )->$value: **Real**     |                                                       |
+| **average**($key )->$value: **Real** |                                                       |
 | **extract**($key )->$collection          | Returns a collection of the values of the column      |
 | **distinct**($key )->$collection         | Returns a collection of distinct values of the column |
 
