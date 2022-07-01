@@ -1,5 +1,6 @@
 <!-- Type your summary here -->
 ## `listbox` class
+This is a 4D database demonstrating the use of a class for managing listboxes containing collection or entity selections. 
 
 To use simply instantiate the class with the name of the listbox object.
 
@@ -16,7 +17,7 @@ Usually you will want to do this using **Form**.
 
 To work properly the listbox object, the widget on the form, must be configured as follows:
 
-![image-20220629174736255](image-20220629174736255.png)
+![image-20220629174736255](Documentation/Classes/image-20220629174736255.png)
 
 Note the class properties corresponding to key listbox object properties.
 
@@ -108,7 +109,7 @@ These functions are basically wrappers for the native **4D** functions and are a
 
 **Another Example**
 
-![image-20220629191657724](image-20220629191657724.png)
+![image-20220629191657724](Documentation/Classes/image-20220629191657724.png)
 
 The listbox is instantiated into Form and populated with a collection.
 
