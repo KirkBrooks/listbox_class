@@ -2,7 +2,7 @@
 <!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
 <base name="listbox_class" uuid="32E12467CEF7494798AC7F13FCC84345" collation_locale="en">
 	<schema name="DEFAULT_SCHEMA"/>
-	<base_extra>
+	<base_extra __stringCompHash="icu:68.1.0" __keywordBuildingHash="icu:68.1.0">
 		<journal_file journal_file_enabled="true"/>
 	</base_extra>
 </base>
