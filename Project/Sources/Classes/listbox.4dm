@@ -15,114 +15,114 @@ initialize
 Class constructor($name : Text; $refs : Object)
 	var $key : Text
 	// (name{;object})
-	ASSERT:C1129(Count parameters:C259>=1; "The name of the listbox object is required.")
+	ASSERT(Count parameters>=1; "The name of the listbox object is required.")
 	
-	This:C1470.name:=$name  //      the name of the listbox
+	This.name:=$name  //      the name of the listbox
 	
-	This:C1470.source:=Null:C1517  //  collection/entity selection form.<>.data is drawn from
-	This:C1470.data:=Null:C1517
-	This:C1470.kind:=Null:C1517
+	This.source:=Null  //  collection/entity selection form.<>.data is drawn from
+	This.data:=Null
+	This.kind:=Null
 	
-	This:C1470.currentItem:=Null:C1517
-	This:C1470.position:=0
-	This:C1470.selectedItems:=Null:C1517
+	This.currentItem:=Null
+	This.position:=0
+	This.selectedItems:=Null
 	
 Function get dataLength : Integer
-	If (This:C1470.data=Null:C1517)
+	If (This.data=Null)
 		return 0
 	Else 
-		return This:C1470.data.length
+		return This.data.length
 	End if 
 	
 Function get isSelected->$isSelected : Boolean
-	$isSelected:=This:C1470.position>0
+	$isSelected:=This.position>0
 	
 Function get index->$index : Integer
-	$index:=This:C1470.position-1
+	$index:=This.position-1
 	
 Function get_item()->$value : Variant
 	//  gets the current item using the position index
-	If (This:C1470.position>0)
-		$value:=This:C1470.data[This:C1470.index]
+	If (This.position>0)
+		$value:=This.data[This.index]
 	End if 
 	
 Function get_shortDesc() : Text
 	//  return a text description of the listbox contents
 	Case of 
-		: (This:C1470.data=Null:C1517)
+		: (This.data=Null)
 			return "The listbox is empty."
 		Else 
-			return String:C10(This:C1470.selectedItems.length)+" selected out of "+String:C10(This:C1470.data.length)
+			return String(This.selectedItems.length)+" selected out of "+String(This.data.length)
 	End case 
 	
 	//MARK:-  setters
 Function setSource($source : Variant)
 /*   Set the source data and determine it's kind   */
 	var $type : Integer
-	$type:=Value type:C1509($source)
+	$type:=Value type($source)
 	
 	Case of 
-		: ($type=Is collection:K8:32)
-			This:C1470.source:=$source
-			This:C1470.kind:=$type
-			This:C1470.setData()
+		: ($type=Is collection)
+			This.source:=$source
+			This.kind:=$type
+			This.setData()
 			
-		: ($type=Is object:K8:27)  //   entity selection
-			This:C1470.source:=$source
-			This:C1470.kind:=$type
-			This:C1470.setData()
+		: ($type=Is object)  //   entity selection
+			This.source:=$source
+			This.kind:=$type
+			This.setData()
 			
 		Else 
-			This:C1470.source:=Null:C1517
-			This:C1470.data:=Null:C1517
-			This:C1470.kind:=Null:C1517
+			This.source:=Null
+			This.data:=Null
+			This.kind:=Null
 	End case 
 	
 Function setData
-	ASSERT:C1129(Count parameters:C259=0)  //  set the data to the source
-	This:C1470.data:=This:C1470.source
+	ASSERT(Count parameters=0)  //  set the data to the source
+	This.data:=This.source
 	
 Function insert($index : Integer; $element : Variant)->$result : Object
 	// attempts to add the element into data
 	// only supports collections
 	
-	If (Num:C11(This:C1470.kind)=Is collection:K8:32)
-		This:C1470.source.insert($index; $element)
-		This:C1470.data.insert($index; This:C1470.source[$index])
-		This:C1470.redraw()
+	If (Num(This.kind)=Is collection)
+		This.source.insert($index; $element)
+		This.data.insert($index; This.source[$index])
+		This.redraw()
 		
-		$result:=result_object(True:C214)
+		$result:=This._result(True)
 	Else 
-		$result:=result_object(False:C215; "Can only insert into collections. ")
+		$result:=This._result(False; "Can only insert into collections. ")
 	End if 
 	
 	//MARK:-
 Function redraw()
-	This:C1470.data:=This:C1470.data
+	This.data:=This.data
 	
 Function reset()
-	This:C1470.data:=This:C1470.source
+	This.data:=This.source
 	
 Function refreshSource
 	//  if this is an entity selection reloads the records
-	If (This:C1470.kind=Is object:K8:27) && (This:C1470.source#Null:C1517)
-		This:C1470.source.refresh()
-		This:C1470.redraw()
+	If (This.kind=Is object) && (This.source#Null)
+		This.source.refresh()
+		This.redraw()
 	End if 
 	
 Function updateEntitySelection()
 	//  if this is an entity selection reloads the entities
-	If (This:C1470.kind=Is object:K8:27)
+	If (This.kind=Is object)
 		var $entity : Object
 		
-		For each ($entity; This:C1470.source)
+		For each ($entity; This.source)
 			$entity.reload()
 		End for each 
 	End if 
 	
 Function deselect
 	//  clear the current selection
-	LISTBOX SELECT ROW:C912(*; This:C1470.name; 0; lk remove from selection:K53:3)
+	LISTBOX SELECT ROW(*; This.name; 0; lk remove from selection)
 	
 Function findRow($criteria : Variant; $value : Variant)->$i : Integer
 /*  attempts to select the row 
@@ -136,14 +136,14 @@ and value is the comparator.
 	$i:=-1
 	
 	Case of 
-		: (This:C1470.kind=Null:C1517)
-		: (This:C1470.kind=Is object:K8:27) && (Value type:C1509($criteria)=Is object:K8:27)
-			$i:=This:C1470.indexOf($criteria)
+		: (This.kind=Null)
+		: (This.kind=Is object) && (Value type($criteria)=Is object)
+			$i:=This.indexOf($criteria)
 			
-		: (Value type:C1509($criteria)=Is text:K8:3) && (Count parameters:C259=2)
+		: (Value type($criteria)=Is text) && (Count parameters=2)
 			$n:=0
 			
-			For each ($o; This:C1470.data)
+			For each ($o; This.data)
 				
 				If ($o[$criteria]=$value)
 					$i:=$n
@@ -161,13 +161,13 @@ Function selectRow($criteria : Variant; $value : Variant)
 	var $row : Integer
 	
 	Case of 
-		: (Value type:C1509($criteria)=Is real:K8:4)
+		: (Value type($criteria)=Is real)
 			$row:=$criteria
 		Else 
-			$row:=This:C1470.findRow($criteria; $value)
+			$row:=This.findRow($criteria; $value)
 	End case 
 	
-	LISTBOX SELECT ROW:C912(*; This:C1470.name; $row; lk replace selection:K53:1)
+	LISTBOX SELECT ROW(*; This.name; $row; lk replace selection)
 	
 	//MARK:-  data functions
 	//  these are really just wrappers for native functions
@@ -180,53 +180,65 @@ if this is a collection $what must be the same type as the collection data
 	$index:=-1
 	
 	Case of 
-		: ($what=Null:C1517) | (This:C1470.kind=Null:C1517)
-		: (This:C1470.kind=Is object:K8:27)
-			$index:=$what.indexOf(This:C1470.data)
+		: ($what=Null) | (This.kind=Null)
+		: (This.kind=Is object)
+			$index:=$what.indexOf(This.data)
 			
-		: (This:C1470.kind=Is collection:K8:32)
-			$index:=This:C1470.data.indexOf($what)
+		: (This.kind=Is collection)
+			$index:=This.data.indexOf($what)
 			
 	End case 
 	
 Function sum($key : Text)->$value : Real
 	//  return the sum of $key if it is a numeric value
-	If (Value type:C1509(This:C1470.data[$key])=Is real:K8:4) || (Value type:C1509(This:C1470.data[$key])=Is longint:K8:6)
-		$value:=This:C1470.data.sum($key)
+	If (Value type(This.data[$key])=Is real) || (Value type(This.data[$key])=Is longint)
+		$value:=This.data.sum($key)
 	End if 
 	
 Function min($key : Text)->$value : Real
 	//  return the min of $key if it is a numeric value
-	If (Value type:C1509(This:C1470.data[$key])=Is real:K8:4) || (Value type:C1509(This:C1470.data[$key])=Is longint:K8:6)
-		$value:=This:C1470.data.min($key)
+	If (Value type(This.data[$key])=Is real) || (Value type(This.data[$key])=Is longint)
+		$value:=This.data.min($key)
 	End if 
 	
 Function max($key : Text)->$value : Real
 	//  return the max of $key if it is a numeric value
-	If (Value type:C1509(This:C1470.data[$key])=Is real:K8:4) || (Value type:C1509(This:C1470.data[$key])=Is longint:K8:6)
-		$value:=This:C1470.data.max($key)
+	If (Value type(This.data[$key])=Is real) || (Value type(This.data[$key])=Is longint)
+		$value:=This.data.max($key)
 	End if 
 	
 Function average($key : Text)->$value : Real
 	//  return the average of $key if it is a numeric value
-	If (Value type:C1509(This:C1470.data[$key])=Is real:K8:4) || (Value type:C1509(This:C1470.data[$key])=Is longint:K8:6)
-		$value:=This:C1470.average($key)
+	If (Value type(This.data[$key])=Is real) || (Value type(This.data[$key])=Is longint)
+		$value:=This.average($key)
 	End if 
 	
 Function extract($key : Text)->$collection : Collection
 	//  return the extracted values of a specific 'column' as a collection
-	If (This:C1470.data[$key]#Null:C1517)
-		$collection:=This:C1470.data.extract($key)
+	If (This.data[$key]#Null)
+		$collection:=This.data.extract($key)
 	End if 
 	
 Function distinct($key : Text)->$collection : Collection
 	//  return the distinct values of a specific 'column' as a collection
-	If (This:C1470.data[$key]#Null:C1517)
-		$collection:=This:C1470.data.distinct($key)
+	If (This.data[$key]#Null)
+		$collection:=This.data.distinct($key)
 	End if 
 	
 Function lastIndexOf($key : Text)->$index : Integer
-	If (This:C1470.data[$key]#Null:C1517)
-		$index:=This:C1470.data.lastIndexOf($key)
+	If (This.data[$key]#Null)
+		$index:=This.data.lastIndexOf($key)
 	End if 
 	
+	//MARK:-  ---- utilities
+Function _result($result : Boolean; $error : Variant) : Object
+	Case of 
+		: (Count parameters=0) || (Bool($result))
+			return New object("success"; True)
+			
+		: (Count parameters=2)  // $result=false and an error text
+			return New object("success"; False; "error"; String($error))
+			
+		Else   // $result=false and no error text
+			return New object("success"; False; "error"; "Unspecified error.")
+	End case 
