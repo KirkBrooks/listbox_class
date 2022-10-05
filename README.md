@@ -114,3 +114,9 @@ These functions are basically wrappers for the native **4D** functions and are a
 The listbox is instantiated into Form and populated with a collection.
 
 The footer displays the sum of the values and the header displays the average.
+
+## Why no functions for manipulating the listbox itself?
+
+This class is designed to manage the data in a listbox. You can instantiate and use just about every function without even being on a form. This is an important step to implementing a **Model View Controller** (MVC) approach to working in 4D and it was very difficult to do in classic 4D because the data and the UI were bound together very tightly. Now they don't have to be as this class shows. 
+
+The listbox widget is concerned with a great number of things that have nothing to do with managing the data but everything to do with interacting with the user. Those actions deserve their own class or suite of methods. 
