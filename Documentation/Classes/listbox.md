@@ -95,11 +95,23 @@ The following functions are the only ones that act on the listbox object. These
 | **findRow**($property; $value) -> $row | Used **findRow()** and selects the row if found |
 | **deselect**                           | Deselects all rows                              |
 
-These functions are basically wrappers for the native **4D** functions and are applied to specific columns.
+These functions are basically wrappers for the native **4D** functions and are applied to specific columns. ‘Columns’ are a property of the entity or collection object in the listbox. For example, if I have a collection where each object looks like
+
+```
+{ "number": 123, "someText": "hello world"}
+```
+
+I can get the average of the `number` column with
+
+```
+$avg:=Form.demo_LB.average("number")
+```
+
+
 
 | Function                                 | Description                                           |
 | ---------------------------------------- | ----------------------------------------------------- |
-| **sum**($key )->$value**:** **Real**     | Returns sum for specific column.                      |
+| **sum**($key )->$value**:** **Real**     | Returns sum for specific `column`.                    |
 | **min**($key )->$value**:** **Real**     |                                                       |
 | **max**($key )->$value**:** **Real**     |                                                       |
 | **average**($key )->$value**:** **Real** |                                                       |

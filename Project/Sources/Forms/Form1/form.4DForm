@@ -1,0 +1,113 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [
+		"onLoad",
+		"onPageChange",
+		"onValidate",
+		"onClick",
+		"onDoubleClick",
+		"onOutsideCall",
+		"onBeginDragOver",
+		"onDragOver",
+		"onDrop",
+		"onAfterKeystroke",
+		"onMenuSelect",
+		"onPluginArea",
+		"onAfterEdit",
+		"onTimer",
+		"onBoundVariableChange"
+	],
+	"windowTitle": "window title",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"demo_LB": {
+					"type": "listbox",
+					"left": 23,
+					"top": 23,
+					"width": 461,
+					"height": 305,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.demo_LB.data",
+					"currentItemSource": "Form:C1466.demo_LB.currentItem",
+					"currentItemPositionSource": "Form:C1466.demo_LB.position",
+					"selectedItemsSource": "Form:C1466.demo_LB.selectedItems",
+					"columns": [
+						{
+							"header": {
+								"text": "Date",
+								"name": "Header1"
+							},
+							"name": "Column1",
+							"footer": {
+								"name": "Footer1"
+							},
+							"dataSource": "This:C1470.date"
+						},
+						{
+							"header": {
+								"name": "Header2",
+								"text": "Number"
+							},
+							"name": "number",
+							"footer": {
+								"name": "Footer2"
+							},
+							"dataSource": "This:C1470.number"
+						}
+					]
+				},
+				"Input": {
+					"type": "input",
+					"left": 31,
+					"top": 348,
+					"width": 374,
+					"height": 17,
+					"dataSource": "Form:C1466.demo_LB.get_shortDesc()"
+				},
+				"Button": {
+					"type": "button",
+					"text": "Button",
+					"top": 344,
+					"left": 425,
+					"width": 92,
+					"height": 25,
+					"events": [
+						"onClick"
+					],
+					"method": "ObjectMethods/Button.4dm"
+				}
+			}
+		}
+	],
+	"geometryStamp": 10,
+	"method": "method.4dm",
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	}
+}

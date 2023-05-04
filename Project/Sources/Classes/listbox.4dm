@@ -10,19 +10,19 @@ add the listbox to the form and set the names
 initialize
     Form["listbox name"]:=cs.listbox.new("listbox name")
 */
+
 */
 
 Class constructor($name : Text; $refs : Object)
-	var $key : Text
-	// (name{;object})
 	ASSERT(Count parameters>=1; "The name of the listbox object is required.")
 	
 	This.name:=$name  //      the name of the listbox
 	
-	This.source:=Null  //  collection/entity selection form.<>.data is drawn from
+	This.source:=Null  //  collection/entity selection form[name].data is drawn from
 	This.data:=Null
 	This.kind:=Null
 	
+	//  use these for the listbox datasource elements
 	This.currentItem:=Null
 	This.position:=0
 	This.selectedItems:=Null
@@ -51,8 +51,10 @@ Function get_shortDesc() : Text
 	Case of 
 		: (This.data=Null)
 			return "The listbox is empty."
+		: (This.isSelected)
+			return String(This.selectedItems.length)+" selected out of "+String(This.dataLength)
 		Else 
-			return String(This.selectedItems.length)+" selected out of "+String(This.data.length)
+			return "0 selected out of "+String(This.dataLength)
 	End case 
 	
 	//MARK:-  setters
@@ -87,8 +89,7 @@ Function insert($index : Integer; $element : Variant)->$result : Object
 	// only supports collections
 	
 	If (Num(This.kind)=Is collection)
-		This.source.insert($index; $element)
-		This.data.insert($index; This.source[$index])
+		This.data.insert($index; $element)
 		This.redraw()
 		
 		$result:=This._result(True)
@@ -190,44 +191,44 @@ if this is a collection $what must be the same type as the collection data
 	End case 
 	
 Function sum($key : Text)->$value : Real
-	//  return the sum of $key if it is a numeric value
-	If (Value type(This.data[$key])=Is real) || (Value type(This.data[$key])=Is longint)
+	//  return the sum of $key if it is a numeric value in this.data
+	If (This._keyExists($key))
 		$value:=This.data.sum($key)
 	End if 
 	
 Function min($key : Text)->$value : Real
-	//  return the min of $key if it is a numeric value
-	If (Value type(This.data[$key])=Is real) || (Value type(This.data[$key])=Is longint)
+	//  return the min of $key if it is a numeric value in this.data
+	If (This._keyExists($key))
 		$value:=This.data.min($key)
 	End if 
 	
 Function max($key : Text)->$value : Real
-	//  return the max of $key if it is a numeric value
-	If (Value type(This.data[$key])=Is real) || (Value type(This.data[$key])=Is longint)
+	//  return the max of $key if it is a numeric value in this.data
+	If (This._keyExists($key))
 		$value:=This.data.max($key)
 	End if 
 	
 Function average($key : Text)->$value : Real
-	//  return the average of $key if it is a numeric value
-	If (Value type(This.data[$key])=Is real) || (Value type(This.data[$key])=Is longint)
-		$value:=This.average($key)
+	//  return the average of $key if it is a numeric value in this.data
+	If (This._keyExists($key))
+		$value:=This.data.average($key)
 	End if 
 	
 Function extract($key : Text)->$collection : Collection
 	//  return the extracted values of a specific 'column' as a collection
-	If (This.data[$key]#Null)
+	If (This._keyExists($key))
 		$collection:=This.data.extract($key)
 	End if 
 	
 Function distinct($key : Text)->$collection : Collection
 	//  return the distinct values of a specific 'column' as a collection
-	If (This.data[$key]#Null)
+	If (This._keyExists($key)
 		$collection:=This.data.distinct($key)
 	End if 
 	
-Function lastIndexOf($key : Text)->$index : Integer
-	If (This.data[$key]#Null)
-		$index:=This.data.lastIndexOf($key)
+Function lastIndexOf($key : Text; $findValue : Variant)->$index : Integer
+	If (This._keyExists($key))
+		$index:=This.extract($key).lastIndexOf($findValue)
 	End if 
 	
 	//MARK:-  ---- utilities
@@ -242,3 +243,10 @@ Function _result($result : Boolean; $error : Variant) : Object
 		Else   // $result=false and no error text
 			return New object("success"; False; "error"; "Unspecified error.")
 	End case 
+	
+Function _keyExists($key : Text) : Boolean
+	return (This.dataLength>0) && (This.data[0][$key]#Null)
+	
+Function _keyIsNumber($key : Text) : Boolean
+	return This._keyExists($key) && (Value type(This.data[0][$key])=Is real) || (Value type(This.data[0][$key])=Is longint)
+	
