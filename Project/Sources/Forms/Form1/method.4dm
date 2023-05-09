@@ -4,6 +4,7 @@
 */
 
 var $ui_msg; $objectName_t : Text
+var $avg : Real
 
 If (Form#Null)
 	$objectName_t:=String(FORM Event.objectName)

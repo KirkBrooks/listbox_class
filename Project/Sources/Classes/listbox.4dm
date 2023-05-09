@@ -37,6 +37,8 @@ Function get dataLength : Integer
 Function get isSelected->$isSelected : Boolean
 	$isSelected:=This.position>0
 	
+	//todo:  add isScalar  \\  True when source is a scalar collection
+	
 Function get index->$index : Integer
 	$index:=This.position-1
 	
@@ -222,7 +224,7 @@ Function extract($key : Text)->$collection : Collection
 	
 Function distinct($key : Text)->$collection : Collection
 	//  return the distinct values of a specific 'column' as a collection
-	If (This._keyExists($key)
+	If (This._keyExists($key))
 		$collection:=This.data.distinct($key)
 	End if 
 	
