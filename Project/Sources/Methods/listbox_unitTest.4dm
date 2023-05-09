@@ -7,6 +7,7 @@ listbox_unitTest ()
 
 var $class : cs.listbox
 var $collection; $resultCol : Collection
+var $length; $i : Integer
 
 $class:=cs.listbox.new("test_LB")
 
