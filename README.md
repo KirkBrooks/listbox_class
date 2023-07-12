@@ -1,7 +1,7 @@
 <!-- Type your summary here -->
 ## `listbox` class
 ### What does it do
-This class is for managing the _data_ associated with a listbox form object. It's only useful for ORDA listboxes - working with collections or entity selections. It provides a robust means of working with listboxes, especially multiple listboxes, on a form. It has no dependencies. You can drop it into any project database from v18R6 forward and it will work making complex or simply listboxes easy to maintain.
+This class is for managing the _data_ associated with a listbox form object. It's only useful for ORDA listboxes - working with collections or entity selections. It provides a robust means of working with listboxes, especially multiple listboxes, on a form. It has no dependencies. You can drop it into any project database from v18R6 forward and it will work making complex or simple listboxes easy to maintain.
 
 The demo form provides some real world examples of use and my suggestions for best practices.
 
