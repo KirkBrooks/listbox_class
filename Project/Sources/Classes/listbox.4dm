@@ -47,9 +47,6 @@ Function get isCollection : Boolean
 Function get isEntitySelection : Boolean
 	return This.kind=Is object
 	
-Function get index->$index : Integer
-	$index:=Num(This.position-1)
-	
 Function get_shortDesc() : Text
 	//  return a text description of the listbox contents
 	Case of 
@@ -205,7 +202,7 @@ Function extract($key : Text)->$collection : Collection
 	
 Function distinct($key : Text)->$collection : Collection
 	//  return the distinct values of a specific 'column' as a collection
-return (This._keyExists($key)) ? This.data.distinct($key) : New collection
+	return (This._keyExists($key)) ? This.data.distinct($key) : New collection
 	
 Function lastIndexOf($key : Text; $findValue : Variant) : Integer
 	return (This._keyExists($key)) ? This.extract($key).lastIndexOf($findValue) : -1
