@@ -1,6 +1,11 @@
 <!-- Type your summary here -->
 ## `listbox` class
+### What does it do
+This class is for managing the _data_ associated with a listbox form object. It's only useful for ORDA listboxes - working with collections or entity selections. It provides a robust means of working with listboxes, especially multiple listboxes, on a form. It has no dependencies. You can drop it into any project database from v18R6 forward and it will work making complex or simply listboxes easy to maintain.
 
+The demo form provides some real world examples of use and my suggestions for best practices.
+
+### Setting up the listbox object
 To use simply instantiate the class with the name of the listbox object.
 
 ```4d
@@ -9,10 +14,7 @@ $listbox:=listbox_class("test_LB")
 
 ALERT("This listbox is named "+$lisbox.name)
 ```
-
 Usually you will want to do this using **Form**.
-
-### Setting up the listbox object
 
 To work properly the listbox object, the widget on the form, ***must*** be configured as follows:
 
