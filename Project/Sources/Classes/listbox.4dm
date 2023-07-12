@@ -38,6 +38,9 @@ Function get isSelected : Boolean
 	
 	//todo:  add isScalar  \\  True when source is a scalar collection
 	
+Function get index->$index : Integer
+	$index:=This.position-1
+	
 Function get isCollection : Boolean
 	return This.kind=Is collection
 	
@@ -202,7 +205,7 @@ Function extract($key : Text)->$collection : Collection
 	
 Function distinct($key : Text)->$collection : Collection
 	//  return the distinct values of a specific 'column' as a collection
-	return (This._keyExists($key)) ? This.data.distinct($key) : New collection
+return (This._keyExists($key)) ? This.data.distinct($key) : New collection
 	
 Function lastIndexOf($key : Text; $findValue : Variant) : Integer
 	return (This._keyExists($key)) ? This.extract($key).lastIndexOf($findValue) : -1
