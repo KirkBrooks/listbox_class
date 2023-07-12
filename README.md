@@ -28,22 +28,22 @@ var $test_LB : cs.listbox
 
 $test_LB:=(Form.test_LB=null) ? cs.listbox.new("test_LB") : Form.test_LB
 
-	Case of
-		: (Form event code=On Load)
-			Form.test_LB:= $test_LB
-			$test_LB.setSource(Form.entitySelection)  //  you must set some data - but it doesn't to be now
+Case of
+	: (Form event code=On Load)
+		Form.test_LB:= $test_LB
+		$test_LB.setSource(Form.entitySelection)  //  you must set some data - but it doesn't to be now
 
-		: (Form event.objectName = "test_LB")
-			Case of
-				:(Form event code = On clicked)
-				
-				:(Form event code = On selection change)
-				
-				:(Form event code = On dataChange)
-					$test_LB.currentItem.save()
-			End case
-		
-	End case
+	: (Form event.objectName = "test_LB")
+		Case of
+			:(Form event code = On clicked)
+			
+			:(Form event code = On selection change)
+			
+			:(Form event code = On dataChange)
+				$test_LB.currentItem.save()
+		End case
+	
+End case
 
 // enable / disable a button for deleting items from this listbox
 OBJECT SET ENABLED(*; "btn_deleteRow"; $test_LB.isSelected)
