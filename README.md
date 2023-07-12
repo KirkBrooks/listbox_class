@@ -50,7 +50,7 @@ End case
 // enable / disable a button for deleting items from this listbox
 OBJECT SET ENABLED(*; "btn_deleteRow"; $test_LB.isSelected)
 // update a text variable showing the displayed state of the listbox
-SET OBJECT VALUE("test_LB_state"; $test_LB.get_shortDesc()) // e.g. "12 selected out of 300 "
+OBJECT SET VALUE("test_LB_state"; $test_LB.get_shortDesc()) // e.g. "12 selected out of 300 "
 
 ```
 
