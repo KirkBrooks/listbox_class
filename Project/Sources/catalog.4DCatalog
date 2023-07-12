@@ -2,6 +2,55 @@
 <!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
 <base name="listbox_class" uuid="32E12467CEF7494798AC7F13FCC84345" collation_locale="en">
 	<schema name="DEFAULT_SCHEMA"/>
+	<table name="ADDRESS" uuid="650C0A5A7F494DC2922F69BB9893E1F9" id="1">
+		<field name="ID" uuid="A3ED042ACD10421ABE577D7D8AF06E0D" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
+		<field name="street" uuid="B94BD9308D7E4EB19D586C77A9699B98" type="10" limiting_length="255" id="2">
+			<field_extra multi_line="false"/>
+		</field>
+		<field name="street2" uuid="8B0DA619302143BB83B31DF733E78E2B" type="10" limiting_length="255" id="3">
+			<field_extra multi_line="false"/>
+		</field>
+		<field name="city" uuid="3FF444D0F5594962851C714EFEF55E4C" type="10" limiting_length="255" id="4">
+			<field_extra multi_line="false"/>
+		</field>
+		<field name="state" uuid="E200C8E26EEC48EF89098AABC4DE018D" type="10" limiting_length="255" id="5">
+			<field_extra multi_line="false"/>
+		</field>
+		<field name="zip" uuid="99687535D861457CB6F06EC4FBEC9AE4" type="10" limiting_length="255" id="6">
+			<field_extra multi_line="false"/>
+		</field>
+		<field name="country" uuid="9E2991696AA04894B6BA163B9E54AAAE" type="10" limiting_length="255" id="7">
+			<field_extra multi_line="false">
+				<editor_field_info>
+					<color red="255" green="255" blue="255" alpha="0"/>
+				</editor_field_info>
+			</field_extra>
+		</field>
+		<field name="latitude" uuid="05EE7CA5D71C426AA25A7F957415288F" type="6" id="8">
+			<field_extra multi_line="false"/>
+		</field>
+		<field name="longitude" uuid="6F99340E4C594257B22084458110D269" type="6" id="9">
+			<field_extra multi_line="false"/>
+		</field>
+		<field name="source" uuid="7523C4BE13034F10A04A8E57E1D31198" type="10" limiting_length="255" id="10">
+			<field_extra multi_line="false"/>
+		</field>
+		<field name="kind" uuid="008CF2CE79FB4CEA87A61DE80E5610E6" type="10" limiting_length="255" id="11">
+			<field_extra multi_line="false"/>
+		</field>
+		<primary_key field_name="ID" field_uuid="A3ED042ACD10421ABE577D7D8AF06E0D"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="12">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="3.6015625" top="7.7487030029301" width="166.74243164062" height="296.07189941406"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<index kind="regular" unique_keys="true" uuid="C63E004EEA3F4241B1114E65CBAC54CB" type="1">
+		<field_ref uuid="A3ED042ACD10421ABE577D7D8AF06E0D" name="ID">
+			<table_ref uuid="650C0A5A7F494DC2922F69BB9893E1F9" name="ADDRESS"/>
+		</field_ref>
+	</index>
 	<base_extra __stringCompHash="icu:68.1.0" __keywordBuildingHash="icu:68.1.0">
 		<journal_file journal_file_enabled="true"/>
 	</base_extra>

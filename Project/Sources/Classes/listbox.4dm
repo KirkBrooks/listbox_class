@@ -23,10 +23,9 @@ Class constructor($name : Text; $refs : Object)
 	This.kind:=Null
 	
 	//  use these for the listbox datasource elements
-	This.currentItem:=Null
-	This.position:=0
-	This.selectedItems:=Null
+	This._clearDatasources()
 	
+	//mark:  --- computed attributes
 Function get dataLength : Integer
 	If (This.data=Null)
 		return 0
@@ -34,19 +33,22 @@ Function get dataLength : Integer
 		return This.data.length
 	End if 
 	
-Function get isSelected->$isSelected : Boolean
-	$isSelected:=This.position>0
+Function get isSelected : Boolean
+	return Num(This.position)>0
 	
 	//todo:  add isScalar  \\  True when source is a scalar collection
 	
 Function get index->$index : Integer
 	$index:=This.position-1
 	
-Function get_item()->$value : Variant
-	//  gets the current item using the position index
-	If (This.position>0)
-		$value:=This.data[This.index]
-	End if 
+Function get isCollection : Boolean
+	return This.kind=Is collection
+	
+Function get isEntitySelection : Boolean
+	return This.kind=Is object
+	
+Function get index->$index : Integer
+	$index:=Num(This.position-1)
 	
 Function get_shortDesc() : Text
 	//  return a text description of the listbox contents
@@ -71,7 +73,7 @@ Function setSource($source : Variant)
 			This.kind:=$type
 			This.setData()
 			
-		: ($type=Is object)  //   entity selection
+		: ($type=Is object) && (OB Instance of($source; 4D.EntitySelection))  //   entity selection
 			This.source:=$source
 			This.kind:=$type
 			This.setData()
@@ -82,40 +84,38 @@ Function setSource($source : Variant)
 			This.kind:=Null
 	End case 
 	
+	This._clearDatasources()
+	
 Function setData
 	ASSERT(Count parameters=0)  //  set the data to the source
 	This.data:=This.source
 	
-Function insert($index : Integer; $element : Variant)->$result : Object
+Function insert($index : Integer; $element : Variant) : Object
 	// attempts to add the element into data
 	// only supports collections
 	
-	If (Num(This.kind)=Is collection)
-		This.data.insert($index; $element)
-		This.redraw()
-		
-		$result:=This._result(True)
-	Else 
-		$result:=This._result(False; "Can only insert into collections. ")
+	If (Not(This.isCollection))
+		return This._result(False; "Can only insert into collections. ")
 	End if 
 	
+	This.data.insert($index; $element)
+	This.redraw()
+	return This._result(True)
+	
 	//MARK:-
+Function get_item()->$value : Variant
+	//  gets the current item using the position index
+	return (This.isSelected) ? This.data[This.index] : Null
+	
 Function redraw()
 	This.data:=This.data
 	
 Function reset()
-	This.data:=This.source
-	
-Function refreshSource
-	//  if this is an entity selection reloads the records
-	If (This.kind=Is object) && (This.source#Null)
-		This.source.refresh()
-		This.redraw()
-	End if 
+	This.setData()
 	
 Function updateEntitySelection()
 	//  if this is an entity selection reloads the entities
-	If (This.kind=Is object)
+	If (This.isEntitySelection)
 		var $entity : Object
 		
 		For each ($entity; This.source)
@@ -123,42 +123,33 @@ Function updateEntitySelection()
 		End for each 
 	End if 
 	
-Function deselect
-	//  clear the current selection
-	LISTBOX SELECT ROW(*; This.name; 0; lk remove from selection)
-	
-Function findRow($criteria : Variant; $value : Variant)->$i : Integer
+Function findRow($criteria : Variant; $value : Variant) : Integer
 /*  attempts to select the row 
 criteria is an entity when data is entity selection 
 criteria is a property for collections or entity selections
 and value is the comparator. 
 */
-	var $n : Integer
 	var $o : Object
 	
-	$i:=-1
+	If (Not(This.isEntitySelection)) && (Not(This.isCollection))
+		return -1
+	End if 
 	
-	Case of 
-		: (This.kind=Null)
-		: (This.kind=Is object) && (Value type($criteria)=Is object)
-			$i:=This.indexOf($criteria)
-			
-		: (Value type($criteria)=Is text) && (Count parameters=2)
-			$n:=0
-			
-			For each ($o; This.data)
-				
-				If ($o[$criteria]=$value)
-					$i:=$n
-					break
-				End if 
-				
-				$n+=1
-			End for each 
-			
-	End case 
+	If (Value type($criteria)=Is object) && (This.isEntitySelection)
+		return $criteria.indexOf(This.data)+1  //  add 1 for the row number
+	End if 
 	
-	$i+=1  //  add 1 for the row number
+	If (This.isCollection) && (Value type($criteria)=Is text) && (Count parameters=2)
+		return This.data.findIndex(Formula($1.value[$2]=$3); $criteria; $value)+1
+	End if 
+	
+	return -1  // 
+	
+	//mark:  --- require the form object
+Function deselect
+	//  clear the current selection
+	LISTBOX SELECT ROW(*; This.name; 0; lk remove from selection)
+	This._clearDatasources()
 	
 Function selectRow($criteria : Variant; $value : Variant)
 	var $row : Integer
@@ -175,65 +166,57 @@ Function selectRow($criteria : Variant; $value : Variant)
 	//MARK:-  data functions
 	//  these are really just wrappers for native functions
 	// but are convenient to have
-Function indexOf($what : Variant)->$index : Integer
+Function indexOf($what : Variant) : Integer
 /* attempts to find the index of $what in .data
 if this is an entity selection $what must be an entity of that dataclass
 if this is a collection $what must be the same type as the collection data
 */
-	$index:=-1
+	If ($what=Null) | (This.kind=Null)
+		return -1
+	End if 
 	
-	Case of 
-		: ($what=Null) | (This.kind=Null)
-		: (This.kind=Is object)
-			$index:=$what.indexOf(This.data)
-			
-		: (This.kind=Is collection)
-			$index:=This.data.indexOf($what)
-			
-	End case 
+	If (This.kind=Is object)  //  entity selection: $what is an entity
+		return $what.indexOf(This.data)
+	End if 
 	
-Function sum($key : Text)->$value : Real
+	If (This.kind=Is collection)
+		return This.data.indexOf($what)
+	End if 
+	
+Function sum($key : Text) : Real
 	//  return the sum of $key if it is a numeric value in this.data
-	If (This._keyExists($key))
-		$value:=This.data.sum($key)
-	End if 
+	return (This._keyExists($key)) ? This.data.sum($key) : 0
 	
-Function min($key : Text)->$value : Real
+Function min($key : Text) : Real
 	//  return the min of $key if it is a numeric value in this.data
-	If (This._keyExists($key))
-		$value:=This.data.min($key)
-	End if 
+	return (This._keyExists($key)) ? This.data.min($key) : 0
 	
-Function max($key : Text)->$value : Real
+Function max($key : Text) : Real
 	//  return the max of $key if it is a numeric value in this.data
-	If (This._keyExists($key))
-		$value:=This.data.max($key)
-	End if 
+	return (This._keyExists($key)) ? This.data.max($key) : 0
 	
 Function average($key : Text)->$value : Real
 	//  return the average of $key if it is a numeric value in this.data
-	If (This._keyExists($key))
-		$value:=This.data.average($key)
-	End if 
+	return (This._keyExists($key)) ? This.data.average($key) : 0
 	
 Function extract($key : Text)->$collection : Collection
 	//  return the extracted values of a specific 'column' as a collection
-	If (This._keyExists($key))
-		$collection:=This.data.extract($key)
-	End if 
+	return (This._keyExists($key)) ? This.data.extract($key) : New collection
 	
 Function distinct($key : Text)->$collection : Collection
 	//  return the distinct values of a specific 'column' as a collection
-	If (This._keyExists($key))
-		$collection:=This.data.distinct($key)
-	End if 
+return (This._keyExists($key)) ? This.data.distinct($key) : New collection
 	
-Function lastIndexOf($key : Text; $findValue : Variant)->$index : Integer
-	If (This._keyExists($key))
-		$index:=This.extract($key).lastIndexOf($findValue)
-	End if 
+Function lastIndexOf($key : Text; $findValue : Variant) : Integer
+	return (This._keyExists($key)) ? This.extract($key).lastIndexOf($findValue) : -1
 	
 	//MARK:-  ---- utilities
+Function _clearDatasources
+	//  clear the objects that are set by the listbox object
+	This.currentItem:=Null
+	This.position:=0
+	This.selectedItems:=Null
+	
 Function _result($result : Boolean; $error : Variant) : Object
 	Case of 
 		: (Count parameters=0) || (Bool($result))
