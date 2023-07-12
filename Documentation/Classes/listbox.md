@@ -28,22 +28,22 @@ var $test_LB : cs.listbox
 
 $test_LB:=(Form.test_LB=null) ? cs.listbox.new("test_LB") : Form.test_LB
 
-	Case of
-		: (Form event code=On Load)
-			Form.test_LB:= $test_LB
-			$test_LB.setSource(Form.entitySelection)  //  you must set some data - but it doesn't to be now
+Case of
+  : (Form event code=On Load)
+    Form.test_LB:= $test_LB
+    $test_LB.setSource(Form.entitySelection)  //  you must set some data - but it doesn't to be now
 
-		: (Form event.objectName = "test_LB")
-			Case of
-				:(Form event code = On clicked)
-				
-				:(Form event code = On selection change)
-				
-				:(Form event code = On dataChange)
-					$test_LB.currentItem.save()
-			End case
-		
-	End case
+  : (Form event.objectName = "test_LB")
+    Case of
+      :(Form event code = On clicked)
+
+      :(Form event code = On selection change)
+
+      :(Form event code = On dataChange)
+        $test_LB.currentItem.save()
+    End case
+
+End case
 
 // enable / disable a button for deleting items from this listbox
 OBJECT SET ENABLED(*; "btn_deleteRow"; $test_LB.isSelected)
@@ -64,15 +64,19 @@ You can use this same pattern on lots of other objects as well. Notice the thing
 
 ### Source and Data
 
-The listbox is populated by putting data into `.source` but `.data` is displayed - why? This approach offers two benefits:
+The listbox is populated by putting data into `.source` but `.data` is displayed - why? 
+
+When `.setSource()` runs it puts whatever data you pass into `.source` and then puts a reference to `.source` into `.data`. Because we are working with references this doesn’t significantly change the memory used, which is totally different than doing this same sort of thing with arrays. Let’s say we have a lot of data we want to work with - 100,000 records. Normally this is not something you’d put in a listbox anyway because it’s just too big. 
+
+The user could start typing into a find widget and ***we can query on `.source` and put the results into `.data**`.* This is extremely fast and doesn’t cause network traffic to the server. 
+
+This approach offers two benefits:
 
 1) it’s a way to limit the scope of the data the user has access to
 2) it allows us to query on the data without having to reload from the server
 3) it simplifies queries that are focused on reducing the line displayed 
 
 If you never need to manage scope or queries this is all totally transparent and stays out of the way.
-
-When `.setSource()` runs it puts whatever data you pass into `.source` and then puts a reference to `.source` into `.data`. Because we are working with references this doesn’t significantly change the memory used, which is totally different than doing this same sort of thing with arrays. Let’s say we have a lot of data we want to work with - 100,000 records. Normally this is not something you’d put in a listbox anyway because it’s just too big. The user could start typing into a find widget and we can query on `.source` and put the results into `.data`. This is extremely fast and doesn’t cause network traffic to the server. 
 
 Because we are working with references any changes the user makes to `.data` are also reflected in `.source`.
 
