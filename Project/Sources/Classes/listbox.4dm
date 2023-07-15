@@ -155,6 +155,21 @@ Function selectRow($criteria : Variant; $value : Variant)
 	
 	LISTBOX SELECT ROW(*; This.name; $row; lk replace selection)
 	
+Function restore($name : Text) : cs.listbox
+	This.name:=$name#"" ? $name : This.name  //  allows you to change the listbox object name on the fly
+	
+	If (Not(This.isFormObject))
+		This._lastError:="restore(): no form object"
+		return This
+	End if 
+	
+	If (This.selectedItems=Null)
+		This._lastError:="restore(): no selected items"
+		return This
+	End if 
+	
+	return This
+	
 	//MARK:-  Data Functions
 	// some are just wrappers for native functions but are convenient to have
 Function insert($index : Integer; $element : Variant) : Object
@@ -195,7 +210,7 @@ if this is a collection $what must be the same type as the collection data
 	return This.data.indexOf($what)
 	
 Function findRow($what : Variant) : Integer
-/*  attempts to select the row for a particular reference
+/*  attempts to find the row for a particular reference
 to an object or entity. 
 */
 	
