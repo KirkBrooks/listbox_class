@@ -1,10 +1,18 @@
 {
-	"Demo": {
+	"Demo 1": {
 		"methods": [
 			"Run_demo"
 		],
 		"forms": [
 			"demo_form"
+		]
+	},
+	"Demo 2": {
+		"methods": [
+			"Run_demo2"
+		],
+		"forms": [
+			"demo_two"
 		]
 	},
 	"Listbox Class": {

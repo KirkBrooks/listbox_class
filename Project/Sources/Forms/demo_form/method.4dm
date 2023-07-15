@@ -113,7 +113,8 @@ and a collection.
 		OBJECT SET VALUE("qry_@"; "")
 		$address_LB.reset()
 		
-	: ($objectName="qry_@") && (Form event code=On After Edit)  //  one of the query fields
+	: ($objectName="qry_@") && (Form event code=On After Edit)  //  one of the query fields changed
+		//  There is a great deal more detailed commentary about how this query works on the demo_two form.
 		//  update the query parameters
 		Form.queryParameters.street:=$objectName="qry_street" ? "@"+Get edited text+"@" : Form.queryParameters.street
 		Form.queryParameters.city:=$objectName="qry_city" ? Get edited text+"@" : Form.queryParameters.city
@@ -124,6 +125,7 @@ and a collection.
 		$queryStr:=""
 		
 		If ($address_LB.isEntitySelection)
+			//  the $property names on the form are the same as in the ADDRESS table
 			For each ($property; Form.queryParameters)
 				If (Form.queryParameters[$property]#"")
 					$queryStr+=$queryStr#"" ? " AND " : ""
@@ -133,6 +135,8 @@ and a collection.
 		End if 
 		
 		If ($address_LB.isCollection)
+			// the $property names of in the collection are not the same as here on the form
+			// I use a quick and dirty lookup scheme to map them.
 			For ($i; 1; 4)
 				$property:=Form.es_properties[$i]
 				

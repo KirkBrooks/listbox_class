@@ -1,0 +1,310 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [
+		"onLoad",
+		"onClick",
+		"onDataChange",
+		"onTimer",
+		"onSelectionChange",
+		"onAfterEdit"
+	],
+	"windowTitle": "Listbox Class Demo",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"Rectangle": {
+					"type": "rectangle",
+					"top": 257,
+					"left": 5,
+					"width": 527,
+					"height": 26,
+					"fill": "#b1c4dd",
+					"stroke": "transparent",
+					"borderRadius": 6
+				},
+				"address_LB": {
+					"type": "listbox",
+					"left": 5,
+					"top": 287,
+					"width": 522,
+					"height": 305,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.address_LB.data",
+					"currentItemSource": "Form:C1466.address_LB.currentItem",
+					"currentItemPositionSource": "Form:C1466.address_LB.position",
+					"selectedItemsSource": "Form:C1466.address_LB.selectedItems",
+					"sizingX": "grow",
+					"sizingY": "grow",
+					"resizingMode": "legacy",
+					"hideFocusRing": true,
+					"scrollbarHorizontal": "automatic",
+					"scrollbarVertical": "automatic",
+					"hideExtraBlankRows": true,
+					"columns": [
+						{
+							"header": {
+								"text": "Street",
+								"name": "Header1"
+							},
+							"name": "Column1",
+							"footer": {
+								"name": "Footer1"
+							},
+							"dataSource": "This:C1470.street",
+							"width": 232,
+							"resizable": false,
+							"enterable": false
+						},
+						{
+							"header": {
+								"name": "Header2",
+								"text": "City"
+							},
+							"name": "Column2",
+							"footer": {
+								"name": "Footer2"
+							},
+							"dataSource": "This:C1470.city",
+							"resizable": false,
+							"enterable": false
+						},
+						{
+							"header": {
+								"name": "Header3",
+								"text": "State"
+							},
+							"name": "Column3",
+							"footer": {
+								"name": "Footer3"
+							},
+							"dataSource": "This:C1470.state",
+							"width": 67,
+							"resizable": false,
+							"enterable": false
+						},
+						{
+							"header": {
+								"name": "Header4",
+								"text": "Zip"
+							},
+							"name": "Column4",
+							"footer": {
+								"name": "Footer4"
+							},
+							"dataSource": "This:C1470.zip",
+							"width": 83,
+							"resizable": false,
+							"enterable": false
+						}
+					]
+				},
+				"address_LB_state": {
+					"type": "input",
+					"left": 5,
+					"top": 599,
+					"width": 374,
+					"height": 17,
+					"dataSource": "",
+					"enterable": false,
+					"sizingY": "move",
+					"focusable": false,
+					"borderStyle": "none",
+					"fill": "transparent",
+					"stroke": "#b1c4dd"
+				},
+				"qry_street": {
+					"type": "input",
+					"left": 15,
+					"top": 263,
+					"width": 201,
+					"height": 15,
+					"placeholder": "  enter street to search",
+					"fontSize": 10,
+					"stroke": "#1e90ff",
+					"dataSource": "Form:C1466.address_LB.qry_street"
+				},
+				"qry_city": {
+					"type": "input",
+					"left": 243,
+					"top": 263,
+					"width": 117,
+					"height": 15,
+					"placeholder": "  city to search",
+					"fontSize": 10,
+					"stroke": "#1e90ff",
+					"dataSource": "Form:C1466.address_LB.qry_city"
+				},
+				"qry_state": {
+					"type": "input",
+					"left": 379,
+					"top": 263,
+					"width": 42,
+					"height": 15,
+					"placeholder": "",
+					"fontSize": 10,
+					"stroke": "#1e90ff",
+					"dataSource": "Form:C1466.address_LB.qry_state"
+				},
+				"qry_zip": {
+					"type": "input",
+					"left": 443,
+					"top": 263,
+					"width": 56,
+					"height": 15,
+					"placeholder": "",
+					"fontSize": 10,
+					"stroke": "#1e90ff",
+					"dataSource": "Form:C1466.address_LB.qry_zip"
+				},
+				"btn_clearQuery": {
+					"type": "button",
+					"text": "ⓧ",
+					"top": 260,
+					"left": 508,
+					"width": 18,
+					"height": 20,
+					"events": [
+						"onClick"
+					],
+					"style": "custom",
+					"textPlacement": "center",
+					"fontWeight": "bold",
+					"stroke": "#1e90ff"
+				},
+				"detail_LB": {
+					"type": "listbox",
+					"left": 552,
+					"top": 236,
+					"width": 444,
+					"height": 380,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.detail_LB.data",
+					"currentItemSource": "Form:C1466.detail_LB.currentItem",
+					"currentItemPositionSource": "Form:C1466.detail_LB.position",
+					"selectedItemsSource": "Form:C1466.detail_LB.selectedItems",
+					"resizingMode": "legacy",
+					"sizingY": "fixed",
+					"scrollbarHorizontal": "hidden",
+					"scrollbarVertical": "hidden",
+					"borderStyle": "none",
+					"hideExtraBlankRows": true,
+					"horizontalLineStroke": "transparent",
+					"verticalLineStroke": "transparent",
+					"rowHeight": "30px",
+					"fontSize": 14,
+					"sizingX": "move",
+					"showHeaders": false,
+					"columns": [
+						{
+							"header": {
+								"text": "Field",
+								"name": "Header5"
+							},
+							"name": "Column6",
+							"footer": {
+								"name": "Footer5"
+							},
+							"dataSource": "This:C1470.key",
+							"width": 100,
+							"stroke": "#808080",
+							"verticalAlign": "middle",
+							"textAlign": "right",
+							"enterable": false
+						},
+						{
+							"header": {
+								"name": "Header6",
+								"text": "Value"
+							},
+							"name": "Column5",
+							"footer": {
+								"name": "Footer6"
+							},
+							"dataSource": "This:C1470.value",
+							"textAlign": "left",
+							"verticalAlign": "middle",
+							"enterable": false
+						}
+					]
+				},
+				"Text": {
+					"type": "text",
+					"text": "Choose Data Set  : ",
+					"top": 224,
+					"left": 5,
+					"width": 131,
+					"height": 16,
+					"fontSize": 14,
+					"fontWeight": "bold",
+					"stroke": "#808080"
+				},
+				"Text1": {
+					"type": "text",
+					"text": "Data in a listbox class is not dependent on a form object. In this example several 'sets' of addresses are available to switch between. Click on the drop down list to swap between various data sets from the Address table. This illustrates several techniques for working with ORDA listboxes as well as the benefits of separating managing the data from the form object when working with them. \r\rThis also illustrates how you can add properties to the class as needed. Check out the form method for details on how the query widget works and see how I add properties to the classes as needed. \r\rYou can save a new data set using the Save Data Set button. \r\rThis is a more sophisticated form than Demo 1 but the amount of code requried is still pretty light- only about 80 lines of actual code in the form method. ",
+					"top": 10,
+					"left": 11,
+					"width": 985,
+					"height": 200,
+					"borderStyle": "solid"
+				},
+				"listboxesDropDown": {
+					"type": "dropdown",
+					"left": 138,
+					"top": 221,
+					"width": 230,
+					"height": 28,
+					"events": [],
+					"dataSourceTypeHint": "object",
+					"dataSource": "Form:C1466.listboxesDropDown"
+				},
+				"btn_save": {
+					"type": "button",
+					"text": "Save Data Set",
+					"top": 221,
+					"left": 380,
+					"width": 147,
+					"height": 27,
+					"events": [
+						"onClick"
+					]
+				}
+			}
+		}
+	],
+	"geometryStamp": 380,
+	"method": "method.4dm",
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	}
+}
