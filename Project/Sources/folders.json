@@ -1,5 +1,4 @@
 {
-	"(Default Forms)": {},
 	"Demo": {
 		"methods": [
 			"Run_demo"
@@ -10,7 +9,7 @@
 	},
 	"Listbox Class": {
 		"methods": [
-			"listbox_unitTest"
+			"UT_listbox_class"
 		],
 		"classes": [
 			"listbox"
@@ -27,11 +26,11 @@
 			"Address_importSampleData",
 			"Compiler_Methods",
 			"ReadAddressDataFile"
+		],
+		"classes": [
+			"ObjectProto",
+			"UnitTest"
 		]
 	},
-	"trash": {
-		"groups": [
-			"(Default Forms)"
-		]
-	}
+	"trash": {}
 }
