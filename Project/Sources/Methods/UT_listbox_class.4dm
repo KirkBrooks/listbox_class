@@ -83,7 +83,6 @@ $class:=cs.listbox.new("test_LB")
 $class.setSource($collection)
 
 $results+=$test.new("Class description is '0 selected out of 20'").expect($class.get_shortDesc()).toEqual("0 selected out of 20").displayline+"\n"
-
 $results+="\nCollection data\n"
 $results+=$test.new("isReady should be True").expect($class.isReady).toEqual(True).displayline+"\n"
 $results+=$test.new("dataLength should be "+String($length)).expect($class.dataLength).toEqual($length).displayline+"\n"

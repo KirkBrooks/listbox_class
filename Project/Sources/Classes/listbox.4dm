@@ -35,7 +35,7 @@ Function get isReady : Boolean
 Function get isFormObject : Boolean
 	//  true if there is a form object for this listbox
 	return OBJECT Get pointer(Object named; This.name)#Null
-	
+
 Function get dataLength : Integer
 	If (This.data=Null)
 		return 0
@@ -154,7 +154,7 @@ Function selectRow($criteria : Variant; $value : Variant)
 	End if 
 	
 	LISTBOX SELECT ROW(*; This.name; $row; lk replace selection)
-	
+
 Function restore($name : Text) : cs.listbox
 	This.name:=$name#"" ? $name : This.name  //  allows you to change the listbox object name on the fly
 	
@@ -169,7 +169,7 @@ Function restore($name : Text) : cs.listbox
 	End if 
 	
 	return This
-	
+
 	//MARK:-  Data Functions
 	// some are just wrappers for native functions but are convenient to have
 Function insert($index : Integer; $element : Variant) : Object
