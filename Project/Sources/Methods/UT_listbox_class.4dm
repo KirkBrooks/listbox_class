@@ -18,11 +18,11 @@ $results:="Listbox Class unit test:\n\n"
 var $class : cs.listbox
 $class:=cs.listbox.new("test_LB")
 
-$results+=$test.new("Empty class is not null").expect($class).notToBeNull().displayline+"\n"
-
-$results+=$test.new("Empty listbox is not ready").expect($class.isReady).toEqual(False).displayline+"\n"
+$results+=$test.new("$class is not null").expect($class).notToBeNull().displayline+"\n"
+$results+=$test.new("$class.isFormObject is false").expect($class.isFormObject).toEqual(False).displayline+"\n"
+$results+=$test.new("$class.isREad is false").expect($class.isReady).toEqual(False).displayline+"\n"
 $results+=$test.new("Empty listbox should have zero length").expect($class.dataLength).toEqual(0).displayline+"\n"
-$results+=$test.new("isSelected should be False").expect($class.isSelected).toEqual(False).displayline+"\n"
+$results+=$test.new("$class.isSelected is False").expect($class.isSelected).toEqual(False).displayline+"\n"
 $results+=$test.new("index should be -1").expect($class.index).toEqual(-1).displayline+"\n"
 $results+=$test.new("get_item() should be null").expect($class.get_item()).toBeNull().displayline+"\n"
 $results+=$test.new("isEntitySelection should be false").expect($class.isEntitySelection).toEqual(False).displayline+"\n"
@@ -39,8 +39,7 @@ $results+="\n"+$test.new("No errors").expect($class.error).toEqual("").displayli
 
 //mark:  --- entity selection data
 
-$class:=cs.listbox.new("test_LB")
-$class.setSource(Address_getRecords())
+$class:=cs.listbox.new("test_LB").setSource(Address_getRecords())
 
 $results+="\nEntity Selection data\n"
 $results+=$test.new("isReady should be True").expect($class.isReady).toEqual(True).displayline+"\n"
@@ -84,7 +83,6 @@ $class:=cs.listbox.new("test_LB")
 $class.setSource($collection)
 
 $results+=$test.new("Class description is '0 selected out of 20'").expect($class.get_shortDesc()).toEqual("0 selected out of 20").displayline+"\n"
-
 
 $results+="\nCollection data\n"
 $results+=$test.new("isReady should be True").expect($class.isReady).toEqual(True).displayline+"\n"

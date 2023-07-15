@@ -14,8 +14,8 @@ initialize
 
 */
 
-Class constructor($name : Text; $refs : Object)
-	ASSERT(Count parameters>=1; "The name of the listbox object is required.")
+Class constructor($name : Text)
+	ASSERT(Count parameters=1; "The name of the listbox object is required.")
 	
 	This.name:=$name  //      the name of the listbox
 	
@@ -31,6 +31,10 @@ Class constructor($name : Text; $refs : Object)
 Function get isReady : Boolean
 	//  return true when there is data
 	return (This.source#Null)
+	
+Function get isFormObject : Boolean
+	//  true if there is a form object for this listbox
+	return OBJECT Get pointer(Object named; This.name)#Null
 	
 Function get dataLength : Integer
 	If (This.data=Null)
@@ -68,7 +72,7 @@ Function get_shortDesc() : Text
 	End case 
 	
 	//MARK:-  Setters
-Function setSource($source : Variant)
+Function setSource($source : Variant) : cs.listbox
 /*   Set the source data and determine it's kind   */
 	var $type : Integer
 	$type:=Value type($source)
@@ -92,30 +96,39 @@ Function setSource($source : Variant)
 	End case 
 	
 	This._clearDatasources()
+	return This
 	
-Function setData
+Function setData : cs.listbox
 	This.data:=This.source
+	return This
 	
-Function redraw()
+Function redraw() : cs.listbox
 	This.data:=This.data
+	return This
 	
-Function reset()
+Function reset() : cs.listbox
 	This.setData()
+	return This
 	
-Function updateEntitySelection()
+Function updateEntitySelection() : cs.listbox
 	//  if this is an entity selection reloads the entities
 	If (Not(This.isEntitySelection))
 		This._lastError:="updateEntitySelection(): this is a collecton"
+		return This
 	End if 
 	var $entity : Object
 	
 	For each ($entity; This.source)
 		$entity.reload()
 	End for each 
-	
+	return This
 	
 	//mark:  --- require the form object
 Function deselect
+	If (Not(This.isFormObject))
+		This._lastError:="deselect(): no form object"
+		return 
+	End if 
 	//  clear the current selection
 	LISTBOX SELECT ROW(*; This.name; 0; lk remove from selection)
 	This._clearDatasources()
@@ -123,8 +136,8 @@ Function deselect
 Function selectRow($criteria : Variant; $value : Variant)
 	var $row : Integer
 	
-	If (Not(This.isReady))
-		This._lastError:="selectRow() err - no data"
+	If (Not(This.isFormObject))
+		This._lastError:="selectRow(): no form object"
 		return 
 	End if 
 	
