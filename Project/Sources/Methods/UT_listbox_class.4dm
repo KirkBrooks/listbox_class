@@ -18,7 +18,7 @@ $results:="Listbox Class unit test:\n\n"
 var $class : cs.listbox
 $class:=cs.listbox.new("test_LB")
 
-$results+=$test.new("$class is not null").expect($class).notToBeNull().displayline+"\n"
+$results+=$test.new("$class is not null").expect($class).not().toBeNull().displayline+"\n"
 $results+=$test.new("$class.isFormObject is false").expect($class.isFormObject).toEqual(False).displayline+"\n"
 $results+=$test.new("$class.isREad is false").expect($class.isReady).toEqual(False).displayline+"\n"
 $results+=$test.new("Empty listbox should have zero length").expect($class.dataLength).toEqual(0).displayline+"\n"
@@ -68,7 +68,7 @@ $results+=$test.new("Length of 'extract(\"zip\") is 5000").expect($class.extract
 START TRANSACTION()
 $entity:=ds.ADDRESS.new()
 $entity.save()
-$results+=$test.new("Attempting to insert to entity selection fails").expect($class.insert(0; $entity)).notToContain(New object("success"; True)).displayline+"\n"
+$results+=$test.new("Attempting to insert to entity selection fails").expect($class.insert(0; $entity)).not().toContain(New object("success"; True)).displayline+"\n"
 CANCEL TRANSACTION
 
 
