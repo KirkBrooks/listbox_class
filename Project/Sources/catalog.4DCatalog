@@ -51,7 +51,7 @@
 			<table_ref uuid="650C0A5A7F494DC2922F69BB9893E1F9" name="ADDRESS"/>
 		</field_ref>
 	</index>
-	<base_extra __stringCompHash="icu:68.1.0" __keywordBuildingHash="icu:68.1.0">
+	<base_extra __stringCompHash="icu:72.1.0" __keywordBuildingHash="icu:72.1.0">
 		<journal_file journal_file_enabled="true"/>
 	</base_extra>
 </base>

@@ -65,37 +65,65 @@ If (Form=Null)
 	return 
 End if 
 
+$objectName:=String(FORM Event.objectName)
+
+/*  this is optional but I find it really useful to put the listbox class into an object
+when the object is delcared as the class it gives you the correct dropdowns and typeahead
+prompts for the class. 
+
+Why am I checking Form.address_LB=Null ? 
+Because the listbox class is not tied to the form it can be populated before the form
+is opened or it could be saved and reused. On the other hand I always want $address_LB
+to be a valid class because I use it a the bottom of the form to set the state of some
+form objects. 
+*/
 $address_LB:=(Form.address_LB=Null) ? cs.listbox.new("address_LB") : Form.address_LB
 $detail_LB:=(Form.detail_LB=Null) ? cs.listbox.new("detail_LB") : Form.detail_LB
-$objectName:=String(FORM Event.objectName)
+
+
 
 //mark:  --- object actions
 Case of 
 	: (Form event code=On Load)
-/*  for this demo I'm going to load the ADDRESS records as an entitySelection
-I'm also going to load the same data as a collection from a JSON file
+		//  this is used for the inputs from the query bar
+		Form.queryParameters:=New object("street"; ""; "city"; ""; "state"; ""; "zip"; "")
 		
-This is purely for showing the differences between working with an entitySelection
-and a collection. 
+		//mark:  --- the data
+/*  for this demo I'm going to load the ADDRESS records as an ENTITY SELECTION first
+We can also load the same data as a COLLECTION from a JSON file
+		
+This is to show how the listbox is agnostic to the type of data it's 
+handling. 
 */
 		Form.entitySelection:=Address_getRecords
 		Form.collectionData:=ReadAddressDataFile
 		
-		//  this is used for the query bar
-		Form.queryParameters:=New object("street"; ""; "city"; ""; "state"; ""; "zip"; "")
 		
-		// the listboxes
-		Form.address_LB:=$address_LB
-		$address_LB.setSource(Form.entitySelection)
+		//mark:  ---  the listboxes
+/* for this demo I know the listboxes aren't populated before the form opens. 
+In this line I'm going to put the data I want to work with into $address_LB
+and then put $address_LB into Form.
 		
+.setSource() loads a collection or entity selection and configures the class 
+for that kind of data. 
+*/
+		Form.address_LB:=$address_LB.setSource(Form.entitySelection)
+		
+		// this is the listbox that shows the record detail on the right side of the form
 		Form.detail_LB:=$detail_LB  //  you don't need to load any data into the listbox to initialize it
 		
-		//  these two collections are here simply because I wanted to swap between a collection and records
+		//  these two collections are here to swap between a collection and record detail data
 		Form.es_properties:=New collection(Null; "street"; "city"; "state"; "zip")
 		Form.co_properties:=New collection(Null; "StreetAddress"; "City"; "State"; "ZipCode")
 		
+		
 	: ($objectName="btn_dataType")
-		// toggle the data between entity selection and collection
+/* Toggles the data between entity selection and collection
+The collection object have different properties than the records do. 
+There are 2 things I need to change: 
+1)  change the name of the datasource for the 4 columns in the address listbox
+2)  load the other data into it
+*/
 		If ($address_LB.isEntitySelection)
 			For ($i; 1; 4)
 				LISTBOX SET COLUMN FORMULA(*; "column"+String($i); "This."+Form.co_properties[$i]; Is text)
@@ -114,18 +142,29 @@ and a collection.
 		$address_LB.reset()
 		
 	: ($objectName="qry_@") && (Form event code=On After Edit)  //  one of the query fields changed
-		//  There is a great deal more detailed commentary about how this query works on the demo_two form.
-		//  update the query parameters
-		Form.queryParameters.street:=$objectName="qry_street" ? "@"+Get edited text+"@" : Form.queryParameters.street
+		//mark:  --- query the listbox
+/*  There is a great deal more detailed commentary about how this query works on the demo_two form.
+Here we have 4 inputs for search values for the 4 columns. 
+		
+I'm going to use Form.queryParameters to hold the values the query will use and pass this object
+into .query() as 'parameters'. 
+see:  https://developer.4d.com/docs/API/DataClassClass#query:~:text=Passing%20parameters%20to%20formulas
+*/
+		If ($objectName="qry_street")
+			Form.queryParameters.street:=Get edited text+"@"
+		End if 
+		
+		//  here's the same code written using the ternary operator
 		Form.queryParameters.city:=$objectName="qry_city" ? Get edited text+"@" : Form.queryParameters.city
 		Form.queryParameters.state:=$objectName="qry_state" ? Get edited text+"@" : Form.queryParameters.state
 		Form.queryParameters.zip:=$objectName="qry_zip" ? Get edited text+"@" : Form.queryParameters.zip
 		
-		//  build the query string
+		//  build the query string. I'm using 
 		$queryStr:=""
 		
 		If ($address_LB.isEntitySelection)
 			//  the $property names on the form are the same as in the ADDRESS table
+			
 			For each ($property; Form.queryParameters)
 				If (Form.queryParameters[$property]#"")
 					$queryStr+=$queryStr#"" ? " AND " : ""
@@ -137,6 +176,7 @@ and a collection.
 		If ($address_LB.isCollection)
 			// the $property names of in the collection are not the same as here on the form
 			// I use a quick and dirty lookup scheme to map them.
+			
 			For ($i; 1; 4)
 				$property:=Form.es_properties[$i]
 				
@@ -148,10 +188,14 @@ and a collection.
 			End for 
 		End if 
 		
-		//  now query the listbox source and put the results into listbox data
+/*  the qeury string is 
+  now query the listbox source and put the results into listbox data
+To do this pass the query string and settings object to .doQuery()
+Using .doQuery() insures the listbox is properly redraw after the query.
+*/
+		
 		If ($queryStr#"")
-			$address_LB.data:=$address_LB.source.query($queryStr; New object("parameters"; Form.queryParameters))
-			$address_LB.redraw()
+			$address_LB.doQuery($queryStr; New object("parameters"; Form.queryParameters))
 		Else 
 			$address_LB.reset()
 		End if 
