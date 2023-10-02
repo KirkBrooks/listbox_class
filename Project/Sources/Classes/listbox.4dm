@@ -191,12 +191,11 @@ Function selectRow($criteria : Variant; $value : Variant) : cs.listbox
 		return This
 	End if
 
-	Case of
-		: (Value type($criteria)=Is real)
-			$row:=$criteria
-		Else
-			$row:=This.findRow($criteria; $value)
-	End case
+	If (Count parameters=1)
+		$row:=Num($criteria)
+	Else
+		$row:=This.findRow($criteria; $value)
+	End if
 
 	LISTBOX SELECT ROW(*; This.name; $row; lk replace selection)
 	OBJECT SET SCROLL POSITION(*; This.name; $row)
@@ -254,7 +253,6 @@ if this is a collection $what must be the same type as the collection data
 
 	If (This.kind=Is collection)
 		return This.data.indexOf($what)
-		
 	End if
 
 Function sum($key : Text) : Real
@@ -312,3 +310,4 @@ Function _keyExists($key : Text) : Boolean
 
 Function _keyIsNumber($key : Text) : Boolean
 	return This._keyExists($key) && (Value type(This.data[0][$key])=Is real) || (Value type(This.data[0][$key])=Is longint)
+	
