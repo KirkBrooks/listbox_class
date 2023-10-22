@@ -35,7 +35,7 @@ Function get isReady : Boolean
 Function get isFormObject : Boolean
 	//  true if there is a form object for this listbox
 	return OBJECT Get pointer(Object named; This.name)#Null
-
+	
 Function get dataLength : Integer
 	If (This.data=Null)
 		return 0
@@ -177,7 +177,6 @@ Function doQuery($queryString : Text; $settings : Object) : cs.listbox
 	This.data:=This.source.query($queryString)
 	return This.redraw().first()
 
-
 	//mark:  --- updates the form object
 Function deselect : cs.listbox
 	//  clear the current selection
@@ -240,7 +239,7 @@ Function last : cs.listbox  // select the last row
 	End if
 
 	return This.selectRow(This.dataLength)
-
+  
 	//MARK:-  data functions
 	//  these are really just wrappers for native functions
 	// but are convenient to have
