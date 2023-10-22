@@ -141,7 +141,7 @@
 					"events": [
 						"onClick"
 					],
-					"sizingY": "move",
+					"sizingY": "fixed",
 					"style": "bevel",
 					"focusable": false
 				},
@@ -276,7 +276,7 @@
 			}
 		}
 	],
-	"geometryStamp": 290,
+	"geometryStamp": 298,
 	"method": "method.4dm",
 	"editor": {
 		"activeView": "View 1",

@@ -27,7 +27,7 @@ $results+=$test.new("index should be -1").expect($class.index).toEqual(-1).displ
 $results+=$test.new("get_item() should be null").expect($class.get_item()).toBeNull().displayline+"\n"
 $results+=$test.new("isEntitySelection should be false").expect($class.isEntitySelection).toEqual(False).displayline+"\n"
 $results+=$test.new("isCollection should be false").expect($class.isCollection).toEqual(False).displayline+"\n"
-$results+=$test.new("Empty class description is 'The listbox is empty'").expect($class.get_shortDesc()).toEqual("The listbox is empty").displayline+"\n"
+$results+=$test.new("Empty class description is 'The listbox is empty.'").expect($class.get_shortDesc()).toEqual("The listbox is empty.").displayline+"\n"
 
 $results+="\nMath Functions on empty listbox\n"
 $results+=$test.new("Sum should be 0").expect($class.sum("x")).toEqual(0).displayline+"\n"
