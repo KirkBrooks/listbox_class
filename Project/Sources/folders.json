@@ -15,6 +15,14 @@
 			"demo_two"
 		]
 	},
+	"HTML Table": {
+		"methods": [
+			"table__test"
+		],
+		"classes": [
+			"HTMLtable"
+		]
+	},
 	"Listbox Class": {
 		"methods": [
 			"UT_listbox_class"
