@@ -21,6 +21,8 @@ Class constructor($id : Text)
 	This._id:=$id ? $id : "htmlTable"
 	This._class:=""  //  class for <table>
 	This._rowClass:=""  //  class for rows
+	This._PKproperty:=""  //  name of PK property in listbox.data elements
+	
 	This._listbox:=Null
 	This._columns:=[]
 	This._errors:=[]
@@ -41,6 +43,16 @@ Function get rowClass : Text
 	
 Function set rowClass($class : Text)
 	This._rowClass:=$class
+	
+Function get PKproperty : Text
+	return This._PKproperty
+	
+Function set PKproperty($property : Text)
+	If (Not(This._isValidProperty($property)))
+		This._err("'"+$property+"' is not a valid property of listbox:"+This._listbox.name)
+	End if 
+	
+	This._PKproperty:=$property
 	
 	//mark:  --- functions
 Function setListbox($class : cs.listbox) : cs.HTMLtable
@@ -93,7 +105,7 @@ Function deleteColumn($col : Variant) : cs.HTMLtable
 	
 Function getTable()->$html : Text
 	//  build the html based on the 
-	var $col : Object
+	var $col; $element : Object
 	var $rowHtml; $rowTemplate : Text
 	
 	$html:=This._tableTag()+"\n"
@@ -113,9 +125,10 @@ Function getTable()->$html : Text
 	
 	$html+="</table>\n"
 	
-	
 Function setFields() : cs.HTMLtable
 	// quick table of all fields of the listbox data
+	var $property : Text
+	
 	This._columns:=[]
 	
 	For each ($property; This._listbox.data.first())
@@ -130,13 +143,14 @@ Function _tableTag()->$tag : Text
 	$tag+=This._class#"" ? " class='"+This._class+"'" : ""
 	$tag+=">"
 	
-Function _rowTemplate($id : Text)->$template : Text
+Function _rowTemplate() : Text
 	// $id is the id property - not the actual id value
 	// loop through columns and build the template for table rows
 	var $col : Object
+	var $template : Text
 	
 	$template:="<tr"
-	$template+=$id="" ? "" : " id='<!--#4DTEXT $1."+$id+"-->'"
+	$template+=This.PKproperty="" ? "" : " id='<!--#4DTEXT $1."+This.PKproperty+"-->'"
 	$template+=This._rowClass="" ? "" : " class='"+This._rowClass+"'"
 	$template+=">"
 	
@@ -144,7 +158,7 @@ Function _rowTemplate($id : Text)->$template : Text
 		$template+=This._cellTemplate($col.property; $col.body.format)
 	End for each 
 	//$template+="</tr>"
-	
+	return $template
 	
 Function _cellTemplate($property : Text; $format) : Text
 	//  $property is the name of the property to write in the cell
@@ -163,8 +177,20 @@ Function _columnObject($property : Text; $options : Object)->$colObj : Object
 	
 Function _isValidProperty($property : Text)->$ok : Boolean
 	//  true when $property is a valid property of _listbox
-	$ok:=This._listbox.isReady && (This._listbox.data#Null)\
-		 && (This._listbox.data[$property]#Null)
+	var $obj : Object
+	
+	If (Not(This._listbox.isReady)) || (This._listbox.data=Null)
+		return False
+	End if 
+	
+	$obj:=This._listbox.data.first()
+	$property:=Replace string($property; "()"; "")
+	
+	If (Value type($obj[$property])=Is object) && (OB Instance of($obj[$property]; 4D.Function))
+		return True
+	End if 
+	
+	return $obj[$property]#Null
 	
 Function _err($text : Text)
 	This._errors.insert(0; $text)

@@ -4,12 +4,18 @@
 var $class : cs.HTMLtable
 var $listbox : cs.listbox
 var $col : Collection
+var $html : Text
+
 $col:=[]
 
 $listbox:=cs.listbox.new("htmlTable")
 $listbox.setSource(ds.ADDRESS.all().slice(0; 12))
 
-$class:=cs.HTMLtable.new().setListbox($listbox).setFields()
+$class:=cs.HTMLtable.new().setListbox($listbox)  //  
+$class.PKproperty:="ID"
+$class.insertColumn("oneLine()")
+
+// $class.setFields()
 
 $html:=$class.getTable()
 
