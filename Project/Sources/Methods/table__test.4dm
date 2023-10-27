@@ -14,6 +14,7 @@ $listbox.setSource(ds.ADDRESS.all().slice(0; 12))
 $class:=cs.HTMLtable.new().setListbox($listbox)  //  
 $class.PKproperty:="ID"
 $class.insertColumn("oneLine()")
+$class.insertColumn("latitude"; {body: {format: "##0.0000"}})
 
 // $class.setFields()
 
