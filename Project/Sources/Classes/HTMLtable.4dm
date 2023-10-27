@@ -125,7 +125,7 @@ Function getTable()->$html : Text
 	
 	$html+="</table>\n"
 	
-Function setFields() : cs.HTMLtable
+Function allFields() : cs.HTMLtable
 	// quick table of all fields of the listbox data
 	var $property : Text
 	
