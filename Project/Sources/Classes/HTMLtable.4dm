@@ -119,7 +119,7 @@ Function getTable()->$html : Text
 	
 	//  loop through the listbox data
 	For each ($element; This._listbox.data)
-		PROCESS 4D TAGS($rowTemplate+"</tr>"; $rowHtml; $element)
+		PROCESS 4D TAGS($rowTemplate; $rowHtml; $element)
 		$html+=$rowHtml+"\n"
 	End for each 
 	
@@ -157,7 +157,7 @@ Function _rowTemplate() : Text
 	For each ($col; This._columns)
 		$template+=This._cellTemplate($col.property; $col.body.format)
 	End for each 
-	//$template+="</tr>"
+	$template+="</tr>"
 	return $template
 	
 Function _cellTemplate($property : Text; $format) : Text

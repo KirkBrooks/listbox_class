@@ -4,8 +4,9 @@ var $text : Text
 
 $text:="<tr>"
 $text+="<td><!--#4DTEXT $1 --></td>"
-$text+="</tr>"
+$text+="</tr>\n"
 
+ALERT($text)
 TRACE
 $text+="< tr>"
 $text[[Length($text)-3]]:="/"
