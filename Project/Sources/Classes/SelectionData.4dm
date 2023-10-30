@@ -118,6 +118,8 @@ Function get dataClassName : Text
 	
 	return This._dataclass.getInfo().name
 	
+Function get header : Object
+	return This._header
 	//mark:  --- private
 Function _set_n_cols
 	var $attr : Text
