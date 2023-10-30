@@ -1,4 +1,12 @@
 {
+	"DataSelection Class": {
+		"methods": [
+			"SelectionData_test"
+		],
+		"classes": [
+			"SelectionData"
+		]
+	},
 	"Demo 1": {
 		"methods": [
 			"Run_demo"
