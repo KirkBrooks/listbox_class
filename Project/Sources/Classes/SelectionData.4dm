@@ -86,6 +86,9 @@ This._header is an object where
 	return This
 	
 	//mark:  --- computed attr
+Function get source : Variant
+	return This._source
+	
 Function get name : Text
 	return This._name
 	

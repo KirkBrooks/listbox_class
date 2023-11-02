@@ -36,6 +36,14 @@
 			"ADDRESS"
 		]
 	},
+	"TNV Listbox": {
+		"methods": [
+			"ListboxTNV_test"
+		],
+		"classes": [
+			"Listbox_tnv"
+		]
+	},
 	"Utility": {
 		"methods": [
 			"Address_getRecords",
