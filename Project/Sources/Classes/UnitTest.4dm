@@ -22,7 +22,7 @@ Class constructor($description : Text)
 	This._result:=False  //  always boolean
 	This.__not:=False
 	This.ms:=0
-
+	
 	//mark:  --- computed attributes
 Function get description : Text
 	return This._description
@@ -30,29 +30,28 @@ Function get pass : Boolean
 	return This.__not ? Not(This._result) : This._result
 	
 Function get isErr : Boolean
-	return This._error#""
+	return Bool(This._error#"")
 	
 Function get error : Text
 	return String(This._error)
 	
 Function get displayline : Text
 	//  return line of text suitable for display in a listbox or text field
-	Case of
-		: (This.isErr)
-			return "⚠️ "+This._description+": "+String(This._error)
-
-		: (This.pass)
-			return "✅   "+This._description+"  ("+String(This.ms)+" ms)"
-
-		Else
-			return "❌   "+This._description+"  ("+String(This.ms)+" ms)"
-	End case 
+	If (This.isErr)
+		return "⚠️ "+This._description+": "+String(This._error)
+	End if 
+	
+	If (This.pass)
+		return "✅   "+This._description+"  ("+String(This.ms)+" ms)"
+	End if 
+	
+	return "❌   "+This._description+"  ("+String(This.ms)+" ms)"
 	
 Function get matcher : Text
 	return This.__not ? "not."+This._matcher : This._matcher
 	
 	//mark:  --- Expect
-Function expect() : cs.UnitTest
+Function expect( ... ) : cs.UnitTest
 	If (This.isErr)
 		return This
 	End if 
@@ -76,7 +75,7 @@ Function expect() : cs.UnitTest
 	This._expectValue:=$params[0]  //  any other params are ignored
 	This._expectValueKind:=This._valueKind($params[0])
 	return This
-
+	
 	//mark:  --- matchers
 Function toEqual() : cs.UnitTest
 /*  toEqual(<formula, value>; <params to formula>)
@@ -123,10 +122,10 @@ object:   compare properties of $1 to expectedValue object
 		Else 
 			This._error:="toBe(): Incorrect input data type"
 			This._result:=False
-	End case
-
+	End case 
+	
 	return This
-
+	
 Function toMatch($pattern) : cs.UnitTest
 	// applies regex pattern to expectedValue
 	var $params : Collection
@@ -137,11 +136,11 @@ Function toMatch($pattern) : cs.UnitTest
 	If (Not(This._paramCheck($params)))
 		return This
 	End if 
-
+	
 	This._result:=Match regex(This._testFormula; This._expectValue; 1; $pos; $len)
 	This._testValue:=This._result ? Substring(This._expectValue; $pos; $len) : ""
 	return This
-
+	
 Function toContain($obj) : cs.UnitTest
 /* when expected value is an object:
   - if $1 is an object test expectedValue is an object too
@@ -166,7 +165,7 @@ otherwise - data type mismatch
 	
 	This._result:=This._objectContains(This._expectValue; This._testValue)
 	return This
-
+	
 Function toBeNull() : cs.UnitTest
 	If (This.isErr)
 		return This
@@ -224,14 +223,14 @@ Function _paramCheck($params : Collection) : Boolean
 		
 		return True
 	End if 
-
+	
 	If (This._matcher="toMatch")
 		If (This._expectValueKind#"text")
 			This._error:="toMatch(): This test can only be applied to text values"
 			This._result:=False
 			return False
 		End if 
-
+		
 		//  input must be a regex pattern
 		If (Value type($params[0])#Is text)
 			This._error:="toMatch(): parameter must be text"
@@ -280,7 +279,7 @@ Function _valueKind($var) : Text
 /* returns a text descriptor of the kind of $var
 number, date, text, bool, object, collection, null, undef, other(blob, picture, pointer)
 */
-	Case of
+	Case of 
 		: (Value type($var)=Is undefined)
 			return "undef"
 		: (Value type($var)=Is object)
@@ -295,7 +294,7 @@ number, date, text, bool, object, collection, null, undef, other(blob, picture, 
 			return "text"
 		: (Value type($var)=Is real) || (Value type($var)=Is longint) || (Value type($var)=Is integer) || (Value type($var)=Is time)
 			return "number"
-		Else
+		Else 
 			return "other"
 	End case 
 	
@@ -310,34 +309,34 @@ Function _eval($params : Collection)->$result : Variant
 	$formula:=$params.shift()  //  shift the first element to the variable
 	$result:=$formula.apply(Null; $params)
 	This.ms:=Milliseconds-$ms
-
+	
 Function _isScalarValue($value) : Boolean
 	If ($value=Null)
 		return False
 	End if 
-
+	
 	return (Value type($value)=Is real) || (Value type($value)=Is text) || (Value type($value)=Is longint) || (Value type($value)=Is date) || (Value type($value)=Is boolean)
-
+	
 Function _toEqualObject($obj : Object)
 	//  compare $obj to This._expectValue
-
+	
 	If (This._expectValueKind#"object")
 		This._result:=False
-		return
-	End if
-
+		return 
+	End if 
+	
 	If (JSON Stringify(OB Keys(This._expectValue))#JSON Stringify(OB Keys($obj)))
 		This._result:=False
 		return 
 	End if 
-
+	
 	// if the keys match we only need to check the values do too
 	This._result:=This._objectContains(This._expectValue; $obj)
-
+	
 Function _objectContains($a : Object; $b : Object) : Boolean
 	// return True when $a contains the key:value pairs of $b
 	var $key : Text
-
+	
 	For each ($key; $b)
 		If (Value type($a[$key])=Is null)
 			return False
@@ -365,3 +364,4 @@ Function _objectContains($a : Object; $b : Object) : Boolean
 	End for each 
 	
 	return True
+	

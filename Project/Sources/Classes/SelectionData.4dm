@@ -9,6 +9,7 @@ property _dataclass : 4D.DataClass
 
 Class constructor($name : Text)
 	This._name:=$name ? $name : Lowercase(Substring(Generate UUID; 12; 8))
+	This._sets:=[]
 	This.clear()
 	
 	
@@ -31,6 +32,7 @@ Function clear : cs.SelectionData
 	This._kind:=Is undefined
 	This._dataclass:=Null
 	This._lastError:=""
+	This._sets:=[]
 	return This
 	
 Function setSource($input) : cs.SelectionData
