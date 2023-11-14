@@ -51,7 +51,7 @@ Function get matcher : Text
 	return This.__not ? "not."+This._matcher : This._matcher
 	
 	//mark:  --- Expect
-Function expect( ... ) : cs.UnitTest
+Function expect() : cs.UnitTest
 	If (This.isErr)
 		return This
 	End if 

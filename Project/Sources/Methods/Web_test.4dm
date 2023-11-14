@@ -7,6 +7,5 @@ Web_test ()
 
 #DECLARE($header : Text)
 
-$col:=Split string($header; "\n")
+WEB SEND TEXT(Adress_to_htmlTable)
 
-TRACE
