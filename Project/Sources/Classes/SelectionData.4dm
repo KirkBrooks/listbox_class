@@ -122,6 +122,19 @@ Function get dataClassName : Text
 	
 Function get header : Object
 	return This._header
+	//mark:  --- sets
+/* a 'set' is an associative array maintained in an object
+Set class provides an interface for maintaining them and performing
+set operations.
+Sets are based on the contents of _source.
+There can be any number of sets created for this selection. 
+Set Object: {name: ""; formula: {}; set: {class}}
+Formula is a formula object applied to Source to create the set. 
+It is applied to each element of Source and must return true/false.
+Each true element becomes a member of the set
+*/
+	
+	
 	//mark:  --- private
 Function _set_n_cols
 	var $attr : Text

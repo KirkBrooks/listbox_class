@@ -6,7 +6,7 @@ SelectionData_test ()
 */
 
 var $class : cs.SelectionData
-
+var $collection : Collection
 
 $class:=cs.SelectionData.new()
 
