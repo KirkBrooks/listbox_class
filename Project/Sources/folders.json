@@ -56,5 +56,10 @@
 			"UnitTest"
 		]
 	},
+	"Web Demo": {
+		"methods": [
+			"Web_test"
+		]
+	},
 	"trash": {}
 }

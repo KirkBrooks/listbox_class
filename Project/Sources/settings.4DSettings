@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><preferences stamp="2">
+<?xml version="1.0" encoding="UTF-8"?><preferences stamp="3">
 	<com.4d>
 		<compiler>
 			<options compilation_path="3"/>
 		</compiler>
+		<web>
+			<standalone_server>
+				<configuration port_number="8080"/>
+			</standalone_server>
+		</web>
 	</com.4d>
 </preferences>
