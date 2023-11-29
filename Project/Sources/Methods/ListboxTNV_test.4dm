@@ -13,5 +13,5 @@ $class:=cs.Listbox_tnv.new("testLB")
 $class:=cs.Listbox_tnv.new("addresses").setSource(ds.ADDRESS.all())
 
 
-.setHeaders({street: "Street"; city: "City"; kind: "Type"})
+//.setHeaders({street: "Street"; city: "City"; kind: "Type"})
 
