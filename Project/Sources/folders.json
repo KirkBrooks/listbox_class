@@ -1,4 +1,12 @@
 {
+	"DataSelection Class": {
+		"methods": [
+			"SelectionData_test"
+		],
+		"classes": [
+			"SelectionData"
+		]
+	},
 	"Demo 1": {
 		"methods": [
 			"Run_demo"
@@ -26,6 +34,14 @@
 	"tables": {
 		"tables": [
 			"ADDRESS"
+		]
+	},
+	"TNV Listbox": {
+		"methods": [
+			"ListboxTNV_test"
+		],
+		"classes": [
+			"Listbox_tnv"
 		]
 	},
 	"Utility": {
