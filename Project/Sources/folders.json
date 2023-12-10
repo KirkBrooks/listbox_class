@@ -23,6 +23,14 @@
 			"demo_two"
 		]
 	},
+	"HTML Grid": {
+		"methods": [
+			"grid__readMe"
+		],
+		"forms": [
+			"listForm"
+		]
+	},
 	"HTML Table": {
 		"methods": [
 			"table__test"
