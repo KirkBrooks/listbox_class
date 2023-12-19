@@ -23,6 +23,14 @@
 			"demo_two"
 		]
 	},
+	"FormCache": {
+		"methods": [
+			"FormCache__readMe"
+		],
+		"classes": [
+			"FormCache"
+		]
+	},
 	"HTML Grid": {
 		"methods": [
 			"grid__readMe"
@@ -34,6 +42,11 @@
 	"HTML Table": {
 		"methods": [
 			"table__test"
+		],
+		"forms": [
+			"[ADDRESS]input",
+			"[ADDRESS]output",
+			"Classic_fields"
 		],
 		"classes": [
 			"HTMLtable"
@@ -60,6 +73,7 @@
 			"ReadAddressDataFile"
 		],
 		"classes": [
+			"JSON_4Dstringify",
 			"ObjectProto",
 			"UnitTest"
 		]

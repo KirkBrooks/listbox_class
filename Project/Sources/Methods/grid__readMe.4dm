@@ -1,5 +1,11 @@
 //%attributes = {}
 
+var $objects; $object : Object
+var $top; $left; $bottom; $right; $offsetLeft; $offsetTop; $rowHeight; $colWidth : Integer
+var $key : Text
+
+
+
 $objects:={\
 Text: {type: "text"; text: "Name :"; top: 57; left: 25; width: 91; height: 16}; \
 Text1: {type: "text"; text: "Email :"; top: 97; left: 25; width: 91; height: 16}; \

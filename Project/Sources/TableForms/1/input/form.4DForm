@@ -1,0 +1,220 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [
+		"onLoad",
+		"onPageChange",
+		"onValidate",
+		"onClick",
+		"onDoubleClick",
+		"onOutsideCall",
+		"onBeginDragOver",
+		"onDragOver",
+		"onDrop",
+		"onAfterKeystroke",
+		"onMenuSelect",
+		"onPluginArea",
+		"onAfterEdit",
+		"onTimer",
+		"onBoundVariableChange"
+	],
+	"windowTitle": "window title",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"label_ID": {
+					"type": "text",
+					"text": "ID:",
+					"top": 10,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_ID": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]ID:1",
+					"top": 10,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				},
+				"label_street": {
+					"type": "text",
+					"text": "street:",
+					"top": 47,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_street": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]street:2",
+					"top": 47,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				},
+				"label_street2": {
+					"type": "text",
+					"text": "street2:",
+					"top": 84,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_street2": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]street2:3",
+					"top": 84,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				},
+				"label_city": {
+					"type": "text",
+					"text": "city:",
+					"top": 121,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_city": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]city:4",
+					"top": 121,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				},
+				"label_state": {
+					"type": "text",
+					"text": "state:",
+					"top": 158,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_state": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]state:5",
+					"top": 158,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				},
+				"label_zip": {
+					"type": "text",
+					"text": "zip:",
+					"top": 195,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_zip": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]zip:6",
+					"top": 195,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				},
+				"label_country": {
+					"type": "text",
+					"text": "country:",
+					"top": 232,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_country": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]country:7",
+					"top": 232,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				},
+				"label_latitude": {
+					"type": "text",
+					"text": "latitude:",
+					"top": 269,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_latitude": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]latitude:8",
+					"top": 269,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				},
+				"label_longitude": {
+					"type": "text",
+					"text": "longitude:",
+					"top": 306,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_longitude": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]longitude:9",
+					"top": 306,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				},
+				"label_source": {
+					"type": "text",
+					"text": "source:",
+					"top": 343,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_source": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]source:10",
+					"top": 343,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				},
+				"label_kind": {
+					"type": "text",
+					"text": "kind:",
+					"top": 380,
+					"left": 10,
+					"width": 100,
+					"height": 17
+				},
+				"field_kind": {
+					"type": "input",
+					"dataSource": "[ADDRESS:1]kind:11",
+					"top": 380,
+					"left": 120,
+					"width": 250,
+					"height": 17
+				}
+			}
+		}
+	],
+	"geometryStamp": 1,
+	"method": "method.4dm"
+}

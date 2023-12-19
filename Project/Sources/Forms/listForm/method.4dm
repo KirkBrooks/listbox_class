@@ -5,7 +5,7 @@
 */
 var $ui_msg; $objectName; $itemText : Text
 var $isSelected : Boolean
-var $listRef; $itemRef; $sublist : Integer
+var $listRef; $itemRef; $sublist; $i; $j : Integer
 
 If (Form=Null)
 	return 
