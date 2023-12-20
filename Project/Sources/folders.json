@@ -34,6 +34,9 @@
 	"HTML CSS grid": {
 		"methods": [
 			"CSSgrid__readMe"
+		],
+		"classes": [
+			"CSSgrid"
 		]
 	},
 	"HTML Grid": {
