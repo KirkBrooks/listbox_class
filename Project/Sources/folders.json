@@ -31,6 +31,11 @@
 			"FormCache"
 		]
 	},
+	"HTML CSS grid": {
+		"methods": [
+			"CSSgrid__readMe"
+		]
+	},
 	"HTML Grid": {
 		"methods": [
 			"grid__readMe"

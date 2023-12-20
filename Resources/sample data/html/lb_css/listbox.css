@@ -1,0 +1,80 @@
+/* FILEPATH: /Users/kirk/4D Workspace/databases/active/listbox_class/Resources/sample data/html/lb_css/listbox.css */
+
+/* continer for listbox
+has two rows: .lb-grid-header and
+.lb-grid-body */
+.lb-grid{
+    display:grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+
+    border: 1px solid #d0d0d0;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+/* display as grid with frist row of .lb-grid with same
+columns as body and is 1 row high */
+.lb-grid-header {
+    display: grid;
+    grid-template-rows: 1fr;
+    border-bottom: 1px solid #d0d0d0;
+    border-right: 1px solid #d0d0d0;
+    border-top: 1px solid #d0d0d0;
+    background-color: #919191;
+    color: #e5e3e3;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    position: sticky;/* this sticks the header to the top of the window */
+    top: 0;
+    z-index: 1;
+}
+
+.lb-header-cell {
+}
+
+/* this defines the column widths */
+.lb-grid-header,
+.lb-grid-body > .lb-grid-row {
+    grid-template-columns: 225px 80px 70px 75px 75px;
+    column-gap: 10px;
+}
+
+/* body of the listbox
+each row has 1 and multiple rows */
+.lb-grid-body {
+
+}
+
+/* a single row of the listbox
+contained in .lb-grid-body */
+.lb-grid-row {
+    display: grid;
+    grid-template-rows: 1fr;
+    border-bottom: 1px solid #f2f1f1;
+    padding-top: 10px;
+}
+
+/* a single cell contined in a .lb-grid-row */
+.lb-cell {
+
+}
+
+/* selected lb-cell should have yellow background color*/
+.cell-hover {
+    background-color: #fdc43326 !important;
+}
+
+.row-selected {
+    background-color: #727270 !important;
+}
