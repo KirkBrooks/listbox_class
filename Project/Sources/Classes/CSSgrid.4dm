@@ -65,7 +65,6 @@ Function buildBodyDiv : cs.CSSgrid
 	This._bodyDiv:=$body
 	return This
 	
-	
 	//mark:  --- templates
 Function tempGrid() : Text
 	return "<div class='lb-grid'>\n<!--#4DHTML $1--></div>\n"

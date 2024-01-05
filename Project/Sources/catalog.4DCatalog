@@ -42,7 +42,7 @@
 		<table_extra input_form="input" output_form="output">
 			<editor_table_info displayable_fields_count="12">
 				<color red="255" green="255" blue="255" alpha="0"/>
-				<coordinates left="3.6015625" top="7.7487030029301" width="166.74243164062" height="296.07189941406"/>
+				<coordinates left="0" top="60.901657104493" width="166.74243164062" height="296.07189941406"/>
 			</editor_table_info>
 		</table_extra>
 	</table>
