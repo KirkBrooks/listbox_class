@@ -1,0 +1,227 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [
+		"onLoad",
+		"onClick",
+		"onDataChange",
+		"onTimer"
+	],
+	"windowTitle": "window title",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"listbox1": {
+					"type": "listbox",
+					"left": 9,
+					"top": 156,
+					"width": 108,
+					"height": 191,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.listbox1.data",
+					"selectedItemsSource": "Form:C1466.listbox1.selectedItems",
+					"hideExtraBlankRows": true,
+					"scrollbarHorizontal": "hidden",
+					"sizingY": "grow",
+					"resizingMode": "legacy",
+					"currentItemSource": "Form:C1466.listbox1.currentItem",
+					"currentItemPositionSource": "Form:C1466.listbox1.position",
+					"columns": [
+						{
+							"header": {
+								"text": "listbox 1",
+								"name": "Header1"
+							},
+							"name": "Column1",
+							"footer": {
+								"name": "Footer1"
+							},
+							"dataSource": "This:C1470.value",
+							"width": 50
+						}
+					]
+				},
+				"Button1": {
+					"type": "button",
+					"text": "Insert",
+					"top": 126,
+					"left": 9,
+					"width": 74,
+					"height": 24,
+					"events": [
+						"onClick"
+					]
+				},
+				"listbox_2": {
+					"type": "listbox",
+					"left": 286,
+					"top": 156,
+					"width": 108,
+					"height": 191,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.listbox1.source",
+					"selectedItemsSource": "",
+					"hideExtraBlankRows": true,
+					"scrollbarHorizontal": "hidden",
+					"sizingY": "grow",
+					"resizingMode": "legacy",
+					"columns": [
+						{
+							"header": {
+								"text": "listbox 2",
+								"name": "Header2"
+							},
+							"name": "Column2",
+							"footer": {
+								"name": "Footer2"
+							},
+							"dataSource": "This:C1470.value",
+							"width": 50
+						}
+					]
+				},
+				"Text": {
+					"type": "text",
+					"text": "Both listboxes display the same collection. \rListbox 1 is manipulated by the button. \r\rSelect a couple of elements in listbox 1 and click the button. Clicking the button inserts a new element at the top of the collection. \r\rTry changing values in the different listboxes. ",
+					"top": 5,
+					"left": 9,
+					"width": 443,
+					"height": 123
+				},
+				"listbox3": {
+					"type": "listbox",
+					"left": 131,
+					"top": 209,
+					"width": 140,
+					"height": 138,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.listbox1.selectedItems",
+					"selectedItemsSource": "",
+					"hideExtraBlankRows": true,
+					"scrollbarHorizontal": "hidden",
+					"sizingY": "grow",
+					"resizingMode": "legacy",
+					"columns": [
+						{
+							"header": {
+								"text": "Selected Items",
+								"name": "Header3"
+							},
+							"name": "Column3",
+							"footer": {
+								"name": "Footer3"
+							},
+							"dataSource": "This:C1470.value",
+							"width": 50
+						}
+					]
+				},
+				"Input": {
+					"type": "input",
+					"left": 240,
+					"top": 156,
+					"width": 30,
+					"height": 17,
+					"dataSource": "Form:C1466.listbox1.position"
+				},
+				"Text1": {
+					"type": "text",
+					"text": "Position:",
+					"top": 157,
+					"left": 131,
+					"width": 77,
+					"height": 16
+				},
+				"Input1": {
+					"type": "input",
+					"left": 240,
+					"top": 181,
+					"width": 30,
+					"height": 17,
+					"dataSource": "Form:C1466.listbox1.currentItem.value"
+				},
+				"Text2": {
+					"type": "text",
+					"text": "CurrentItem:",
+					"top": 182,
+					"left": 131,
+					"width": 92,
+					"height": 16
+				},
+				"btn_clearselection": {
+					"type": "button",
+					"text": "Clear Selection",
+					"top": 126,
+					"left": 409,
+					"width": 114,
+					"height": 24,
+					"events": [
+						"onClick"
+					]
+				},
+				"btn_selectRow": {
+					"type": "button",
+					"text": "Select Row",
+					"top": 160,
+					"left": 409,
+					"width": 114,
+					"height": 24,
+					"events": [
+						"onClick"
+					]
+				},
+				"Input2": {
+					"type": "input",
+					"left": 533,
+					"top": 164,
+					"width": 30,
+					"height": 17,
+					"dataSource": "Form:C1466.selectRowNumber",
+					"dataSourceTypeHint": "integer"
+				}
+			}
+		}
+	],
+	"geometryStamp": 302,
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	},
+	"method": "method.4dm",
+	"memorizeGeometry": true
+}
