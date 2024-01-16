@@ -276,7 +276,7 @@
 			}
 		}
 	],
-	"geometryStamp": 298,
+	"geometryStamp": 299,
 	"method": "method.4dm",
 	"editor": {
 		"activeView": "View 1",
@@ -284,5 +284,6 @@
 		"views": {
 			"View 1": {}
 		}
-	}
+	},
+	"memorizeGeometry": true
 }
