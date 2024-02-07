@@ -31,6 +31,15 @@
 			"listbox"
 		]
 	},
+	"Source Classes": {
+		"methods": [
+			"Source__readMe"
+		],
+		"classes": [
+			"_Src_collection",
+			"_Src_selection"
+		]
+	},
 	"tables": {
 		"tables": [
 			"ADDRESS"

@@ -10,4 +10,8 @@ If (Records in table([ADDRESS])=0)
 	Address_importSampleData
 End if 
 
+var $context : Object
+ds.setRemoteContextInfo("LB"; ds.ADDRESS; "street, city, state, zip"; "main")
+
 return ds.ADDRESS.all()
+

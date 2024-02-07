@@ -39,7 +39,7 @@
 			<field_extra multi_line="false"/>
 		</field>
 		<primary_key field_name="ID" field_uuid="A3ED042ACD10421ABE577D7D8AF06E0D"/>
-		<table_extra>
+		<table_extra trigger_insert="true" trigger_update="true">
 			<editor_table_info displayable_fields_count="12">
 				<color red="255" green="255" blue="255" alpha="0"/>
 				<coordinates left="3.6015625" top="7.7487030029301" width="166.74243164062" height="296.07189941406"/>
