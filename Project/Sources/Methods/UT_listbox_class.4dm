@@ -10,7 +10,7 @@ var $collection : Collection
 var $i; $length : Integer
 var $results : Text
 
-$test:=cs.yaUT.UnitTest  //  constructor object for unit test
+$test:=cs.UnitTest  //  constructor object for unit test
 $results:="Listbox Class unit test:\n\n"
 
 //mark:  --- begin test

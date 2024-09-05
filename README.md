@@ -24,7 +24,7 @@ To work properly the listbox object, the widget on the form, ***must*** be confi
 
 ![image-20220629174736255](Documentation/Classes/image-20220629174736255.png)
 
-Note the class properties corresponding to key listbox object properties. Fill them all in even if you don’t expect to ever need them. It’s not required but there’s really no reason not to. 
+Note the class properties corresponding to key listbox object properties. Fill them all in even if you don’t expect to ever need them. It’s not required but there’s really no reason not to.
 
 Note this listbox is instantiated in **Form**.
 
@@ -42,19 +42,19 @@ Case of
 	: (Form event.objectName = "test_LB")
 		Case of
 			:(Form event code = On clicked)
-			
+
 			:(Form event code = On selection change)
-			
+
 			:(Form event code = On dataChange)
 				$test_LB.currentItem.save()
 		End case
-	
+
 End case
 
 // enable / disable a button for deleting items from this listbox
 OBJECT SET ENABLED(*; "btn_deleteRow"; $test_LB.isSelected)
 // update a text variable showing the displayed state of the listbox
-OBJECT SET VALUE("test_LB_state"; $test_LB.get_shortDesc()) // e.g. "12 selected out of 300 "
+OBJECT SET VALUE("test_LB_state"; $test_LB.shortDesc) // e.g. "12 selected out of 300 "
 
 ```
 
@@ -74,11 +74,11 @@ The listbox is populated by putting data into `.source` but `.data` is displayed
 
 1) it’s a way to limit the scope of the data the user has access to
 2) it allows us to query on the data without having to reload from the server
-3) it simplifies queries that are focused on reducing the line displayed 
+3) it simplifies queries that are focused on reducing the line displayed
 
 If you never need to manage scope or queries this is all totally transparent and stays out of the way.
 
-When `.setSource()` runs it puts whatever data you pass into `.source` and then puts a reference to `.source` into `.data`. Because we are working with references this doesn’t significantly change the memory used, which is totally different than doing this same sort of thing with arrays. Let’s say we have a lot of data we want to work with - 100,000 records. Normally this is not something you’d put in a listbox anyway because it’s just too big. The user could start typing into a find widget and we can query on `.source` and put the results into `.data`. This is extremely fast and doesn’t cause network traffic to the server. 
+When `.setSource()` runs it puts whatever data you pass into `.source` and then puts a reference to `.source` into `.data`. Because we are working with references this doesn’t significantly change the memory used, which is totally different than doing this same sort of thing with arrays. Let’s say we have a lot of data we want to work with - 100,000 records. Normally this is not something you’d put in a listbox anyway because it’s just too big. The user could start typing into a find widget and we can query on `.source` and put the results into `.data`. This is extremely fast and doesn’t cause network traffic to the server.
 
 Because we are working with references any changes the user makes to `.data` are also reflected in `.source`.
 
@@ -96,9 +96,9 @@ These are the properties of the `listbox` class.
 | position      | The row number of the currently selected row.                | Current item position          |
 | selectedItems | Collection or entity selection of selected item(s)           | Selected Items                 |
 
-You will generally only read these properties - there are functions for setting the ones relevant to working with the listbox. 
+You will generally only read these properties - there are functions for setting the ones relevant to working with the listbox.
 
-There are also several computed attributes which appear as properties but the are **read-only**. 
+There are also several computed attributes which appear as properties but the are **read-only**.
 
 | Property          | Type    | Description                                                  |
 | ----------------- | ------- | ------------------------------------------------------------ |
@@ -108,7 +108,7 @@ There are also several computed attributes which appear as properties but the ar
 | isEntitySelection | boolean | True if the `data` is an entity selection                    |
 | index             | integer | The index of the currentItem<br />This is equivalent to listbox.position - |
 
-`isSelected` is probably the most useful of these properties because it allows you to easily tell if anything is selected. Very helpful for managing enabling/disabling buttons that depend on a selection in the listbox. 
+`isSelected` is probably the most useful of these properties because it allows you to easily tell if anything is selected. Very helpful for managing enabling/disabling buttons that depend on a selection in the listbox.
 
 
 
