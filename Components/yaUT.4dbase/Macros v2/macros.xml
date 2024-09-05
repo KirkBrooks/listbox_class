@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE macros SYSTEM "http://www.4d.com/dtd/2007/macros.dtd">
+<macros>
+    <macro name="( *** yaUT Macros ***" in_menu="true"></macro>
+    <macro name="yaUTnewtest" in_menu="true" type_ahead="true" version="2">
+        <text>
+            #DECLARE->$testsRun : Collection  // return a collection of tests
+            var $test : Object
+
+            $test:=cs.yaUT.UnitTest  //  test constructor
+            $testsRun:=[]  //  collection of tests
+
+            //mark:  --- create unit tests
+            //$testsRun.push($test.new("1 is equal to 1").expect(1).toEqual(1))
+            //$testsRun.push($test.new("1 is not equal to 5").expect(1).not().toEqual(5))
+            //$testsRun.push($test.new("1 is not null").expect(1).not().toBeNull())
+            // insert a comment line
+            //$testsRun.push($test.new().insertComment("This is my comment "))
+        </text>
+    </macro>
+</macros>

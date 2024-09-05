@@ -10,7 +10,7 @@ var $collection : Collection
 var $i; $length : Integer
 var $results : Text
 
-$test:=cs.UnitTest  //  constructor object for unit test
+$test:=cs.yaUT.UnitTest  //  constructor object for unit test
 $results:="Listbox Class unit test:\n\n"
 
 //mark:  --- begin test
@@ -27,7 +27,7 @@ $results+=$test.new("index should be -1").expect($class.index).toEqual(-1).displ
 $results+=$test.new("get_item() should be null").expect($class.get_item()).toBeNull().displayline+"\n"
 $results+=$test.new("isEntitySelection should be false").expect($class.isEntitySelection).toEqual(False).displayline+"\n"
 $results+=$test.new("isCollection should be false").expect($class.isCollection).toEqual(False).displayline+"\n"
-$results+=$test.new("Empty class description is 'The listbox is empty.'").expect($class.get_shortDesc()).toEqual("The listbox is empty.").displayline+"\n"
+$results+=$test.new("Empty class description is 'The listbox is empty.'").expect($class.shortDesc).toEqual("The listbox is empty.").displayline+"\n"
 
 $results+="\nMath Functions on empty listbox\n"
 $results+=$test.new("Sum should be 0").expect($class.sum("x")).toEqual(0).displayline+"\n"
@@ -49,7 +49,7 @@ $results+=$test.new("index should be -1").expect($class.index).toEqual(-1).displ
 $results+=$test.new("get_item() should be null").expect($class.get_item()).toBeNull().displayline+"\n"
 $results+=$test.new("isEntitySelection should be True").expect($class.isEntitySelection).toEqual(True).displayline+"\n"
 $results+=$test.new("isCollection should be false").expect($class.isCollection).toEqual(False).displayline+"\n"
-$results+=$test.new("Description is '0 selected out of 5000'").expect($class.get_shortDesc()).toEqual("0 selected out of 5000").displayline+"\n"
+$results+=$test.new("Description is '0 selected out of 5000'").expect($class.shortDesc).toEqual("0 selected out of 5000").displayline+"\n"
 
 $results+="\n  Math Functions \n"
 $results+=$test.new("Sum(latitude) should be 189697.433635").expect($class.sum("latitude")).toEqual(189697.433635).displayline+"\n"
@@ -82,7 +82,7 @@ End for
 $class:=cs.listbox.new("test_LB")
 $class.setSource($collection)
 
-$results+=$test.new("Class description is '0 selected out of 20'").expect($class.get_shortDesc()).toEqual("0 selected out of 20").displayline+"\n"
+$results+=$test.new("Class description is '0 selected out of 20'").expect($class.shortDesc).toEqual("0 selected out of 20").displayline+"\n"
 $results+="\nCollection data\n"
 $results+=$test.new("isReady should be True").expect($class.isReady).toEqual(True).displayline+"\n"
 $results+=$test.new("dataLength should be "+String($length)).expect($class.dataLength).toEqual($length).displayline+"\n"
