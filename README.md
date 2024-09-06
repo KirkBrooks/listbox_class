@@ -5,10 +5,10 @@
 <!-- Type your summary here -->
 ## `listbox` class
 
-### Be sure to download the correct version:
-v19:  works with v19+, is stable and not being updated
-v20:  works with v20+, is stable and is being updated
-v20beta: works with the current v20R beta, perhaps a few before.
+### Be sure to download the correct branch:
+- v19:  works with v19+, is stable and not being updated
+- v20:  works with v20+, is stable and is being updated
+- v20beta: works with the current v20R beta, perhaps a few before
 
 ### What does it do
 This class is for managing the _data_ associated with a listbox form object. It's only useful for ORDA listboxes - working with collections or entity selections. It provides a robust means of working with listboxes, especially multiple listboxes, on a form. It has no dependencies. You can drop it into any project database from v18R6 forward and it will work making complex or simple listboxes easy to maintain.
