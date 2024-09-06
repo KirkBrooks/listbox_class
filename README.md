@@ -1,9 +1,15 @@
 ![version](https://img.shields.io/badge/version-18R5%2B-5682DF)
 ![platform](https://img.shields.io/static/v1?label=platform&message=mac-intel%20|%20mac-arm%20|%20win-64&color=blue)
 [![license](https://img.shields.io/github/license/kirkBrooks/listbox_class)](LICENSE)
-![downloads](https://img.shields.io/github/downloads/kirkBrooks/listbox_class/total)
+
 <!-- Type your summary here -->
 ## `listbox` class
+
+### Be sure to download the correct version:
+v19:  works with v19+, is stable and not being updated
+v20:  works with v20+, is stable and is being updated
+v20beta: works with the current v20R beta, perhaps a few before.
+
 ### What does it do
 This class is for managing the _data_ associated with a listbox form object. It's only useful for ORDA listboxes - working with collections or entity selections. It provides a robust means of working with listboxes, especially multiple listboxes, on a form. It has no dependencies. You can drop it into any project database from v18R6 forward and it will work making complex or simple listboxes easy to maintain.
 
