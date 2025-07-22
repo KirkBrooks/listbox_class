@@ -6,8 +6,7 @@ Address_getRecords ()
 */
 #DECLARE : cs.ADDRESSSelection
 
-If (Records in table([ADDRESS])=0)
-	Address_importSampleData
-End if 
+TRUNCATE TABLE([ADDRESS])
+Address_importSampleData
 
 return ds.ADDRESS.all()

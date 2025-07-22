@@ -1,31 +1,73 @@
 /*  Listbox ()
  Created by: Kirk as Designer
-modified: 08/23/2023
  ------------------
 Default Names
 eg. display data, current item, etc. These are stored in the Form and accessed with
 
 TO USE
-/*
-add the listbox to the form and set the names
-initialize
-    Form["listbox name"]:=cs.listbox.new("listbox name")
-*/
+  You can instantiate the class into any variable. This makes it easy to do testing.
+    $class:=cs.listbox.new("test_LB")
+  To use the class in a form you can use the following code. Put it at the top of the form method:
+    var $my_LB : cs.listbox
+	$my_LB:=Form.my_LB || cs.listbox.new("my_LB")  // instantiate the class if it isn't already on the form
+
+	If(Form event.code="On Load")
+		Form.my_LB:=$my_LB
+		$my_LB.setSource( {{Form.my_collection}})  // set the source data for the listbox
+	end if
+
+	Using $my_LB is a convenient way to have the listbox object available in the form methods.
+
+  Setup the listbox object:
+	Set the data source to Form.my_LB.data
+	Set the Data Source -Current Item to Form.my_LB.currentItem
+	Set the Data Source -Position to Form.my_LB.position
+	Set the Data Source -Selected Items to Form.my_LB.selectedItems
+
+You can change the contents of the listbox by calling .setSource()
+
+In the form method you can:
+
+   If($my_LB.isSelected)
+     $my_LB.currentItem["some property"]:= "new value"
+   End if
 
 */
 
-Class constructor($name : Text)
-	ASSERT(Count parameters=1; "The name of the listbox object is required.")
+property name : Text  //      the name of the listbox object
+property source : Variant  //  collection/entity selection form[name].data is drawn from
+property dataClass : 4D.DataClass  // of source when it's an entity selection
+property data : Variant  //   selection of This.source displayed in the listbox
+property kind : Integer  //   4D data type of This.source:  is collection | is object(entity selection)
+property _lastError : Text
+// these properties are used on the Form
+property selectedItems : Variant  // entity selection or collection of selected items
+property position : Integer  //      row of first selected item
+property currentItem : Object  //    select item if entity selection or collection contains objects
+
+
+Class constructor($name : Text; $source)
+	ASSERT($name#""; "The name of the listbox object is required.")
 	
-	This.name:=$name  //      the name of the listbox
-	
-	This.source:=Null  //  collection/entity selection form[name].data is drawn from
+	This.name:=$name
+	This.source:=Null
 	This.data:=Null
 	This.kind:=Is undefined
 	This._lastError:=""
 	
 	//  use these for the listbox datasource elements
 	This._clearDatasources()
+	
+	Case of 
+		: (Count parameters=1)
+			// nothing else
+		: (Value type($source)=Is object) && (OB Instance of($source; 4D.EntitySelection))
+			This.setSource($source)
+			
+		: (Value type($source)=Is collection)
+			This.setSource($source)
+	End case 
+	
 	
 	//mark:  --- computed attributes
 Function get isReady : Boolean
@@ -81,6 +123,7 @@ Function setSource($source : Variant) : cs.listbox
 	If ($type=Is collection)
 		This.source:=$source
 		This.kind:=$type
+		This.dataClass:=Null
 		This.setData()
 		
 		return This
@@ -89,6 +132,8 @@ Function setSource($source : Variant) : cs.listbox
 	If ($type=Is object) && (OB Instance of($source; 4D.EntitySelection))  //   entity selection
 		This.source:=$source
 		This.kind:=$type
+		This.dataClass:=$source.getDataClass()
+		
 		This.setData()
 		
 		return This
@@ -96,7 +141,7 @@ Function setSource($source : Variant) : cs.listbox
 	
 	This.source:=Null
 	This.data:=Null
-	This.kind:=Null
+	This.kind:=-1
 	return This
 	
 Function setData : cs.listbox
@@ -117,11 +162,12 @@ Function insert($index : Integer; $element : Variant) : Object
 	
 	//MARK:-
 Function get_item()->$value : Variant
-	//  gets the current item using the position index
+	//  gets the current item using the position index. Usually this is the same 
+	//  as currentItem unless the collection does not contain objects
 	return (This.isSelected) ? This.data[This.index] : Null
 	
 Function redraw() : cs.listbox
-	This.data:=This.data
+	This.data:=This.data  //  forces form object redraw itself
 	return This
 	
 Function reset() : cs.listbox
@@ -145,19 +191,15 @@ Function updateEntitySelection() : cs.listbox
 Function findRow($criteria : Variant) : Integer
 /*  attempts to select the row
 criteria is an entity when data is entity selection
-criteria is a property for collections or entity selections
-and value is the comparator.
+criteria is a object for collections
 */
 	
-	If (Not(This.isEntitySelection)) && (Not(This.isCollection))
-		return -1
-	End if 
-	
-	If (Value type($criteria)=Is object) && (This.isEntitySelection)
+	If (This.isEntitySelection) && (Value type($criteria)=Is object) && (OB Instance of($criteria; 4D.Entity))
+		// $criteria is an object. .indexOf() returns the position of the entity in an entity selection.
 		return $criteria.indexOf(This.data)+1  //  add 1 for the row number
 	End if 
 	
-	If (Value type($criteria)=Is object)  // collection
+	If (This.isCollection) && (Value type($criteria)=Is object)
 		return This.data.indexOf($criteria)+1  //  add 1 for the row number
 	End if 
 	
@@ -191,17 +233,33 @@ Function selectRow($criteria : Variant; $value : Variant) : cs.listbox
 	End if 
 	
 	Case of 
-		: (Value type($criteria)=Is real)
+		: (Value type($criteria)=Is real) && ($criteria<=This.dataLength)
 			$row:=$criteria
+		: (Value type($criteria)=Is object)
+			$row:=This.findRow($criteria)
 		Else 
-			$row:=This.findRow($criteria; $value)
+			$row:=-1
 	End case 
+	
+	If ($row>0)
+		This.currentItem:=This.data[$row-1]
+		This.position:=$row
+		If (This.isCollection)
+			This.selectedItems:=[This.currentItem]
+		Else 
+			This.selectedItems:=This.dataClass.newSelection()
+			This.selectedItems.add(This.selectedItems)
+		End if 
+	Else 
+		This.currentItem:=Null
+		This.selectedItems:=Null
+		This.position:=0
+	End if 
 	
 	LISTBOX SELECT ROW(*; This.name; $row; lk replace selection)
 	
 	If ($row>2)
 		OBJECT SET SCROLL POSITION(*; This.name; $row; *)
-		This.currentItem:=This.data[$row-1]
 	End if 
 	
 	return This
