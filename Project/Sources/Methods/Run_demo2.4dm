@@ -12,12 +12,13 @@ $formData:=New object()
 /*  I'm going to use the Address data
 I'm going to instantiate some listbox classes populated with various 
 selections of address before opening the form. This could also be done
-on the form but I'm doing it here. 
+on the form. 
 
+I'm doing this here to illustrate that the data in the listbox class
+is not dependent on the form. 
 */
 
-var $listboxes : Collection
-$listboxes:=New collection()
+var $listboxes : Collection:=[]
 
 // notice I'm using a temp name for the listbox
 /* Also - notice that I populate each listbox with a separate query. This means the 

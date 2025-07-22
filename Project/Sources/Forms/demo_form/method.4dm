@@ -67,38 +67,16 @@ End if
 
 $objectName:=String(FORM Event.objectName)
 
-/*  this is optional but I find it really useful to put the listbox class into an object
-when the object is delcared as the class it gives you the correct dropdowns and typeahead
-prompts for the class. 
-
-Why am I checking Form.address_LB=Null ? 
-Because the listbox class is not tied to the form it can be populated before the form
-is opened or it could be saved and reused. On the other hand I always want $address_LB
-to be a valid class because I use it a the bottom of the form to set the state of some
-form objects. 
+/*  This is optional but really useful
+putting the listbox class instance into an object makes it much
+easier to work with on the form
 */
-$address_LB:=(Form.address_LB=Null) ? cs.listbox.new("address_LB") : Form.address_LB
-$detail_LB:=(Form.detail_LB=Null) ? cs.listbox.new("detail_LB") : Form.detail_LB
-
-
+$address_LB:=Form.address_LB || cs.listbox.new("address_LB")
+$detail_LB:=Form.detail_LB || cs.listbox.new("detail_LB")
 
 //mark:  --- object actions
 Case of 
 	: (Form event code=On Load)
-		//  this is used for the inputs from the query bar
-		Form.queryParameters:=New object("street"; ""; "city"; ""; "state"; ""; "zip"; "")
-		
-		//mark:  --- the data
-/*  for this demo I'm going to load the ADDRESS records as an ENTITY SELECTION first
-We can also load the same data as a COLLECTION from a JSON file
-		
-This is to show how the listbox is agnostic to the type of data it's 
-handling. 
-*/
-		Form.entitySelection:=Address_getRecords
-		Form.collectionData:=ReadAddressDataFile
-		
-		
 		//mark:  ---  the listboxes
 /* for this demo I know the listboxes aren't populated before the form opens. 
 In this line I'm going to put the data I want to work with into $address_LB
@@ -112,10 +90,22 @@ for that kind of data.
 		// this is the listbox that shows the record detail on the right side of the form
 		Form.detail_LB:=$detail_LB  //  you don't need to load any data into the listbox to initialize it
 		
+		//  this is used for the inputs from the query bar
+		Form.queryParameters:=New object("street"; ""; "city"; ""; "state"; ""; "zip"; "")
+		
+		//mark:  --- the data
+/*  for this demo I'm going to load the ADDRESS records as an ENTITY SELECTION first
+We can also load the same data as a COLLECTION from a JSON file
+		
+This is to show how the listbox is agnostic to the type of data it's 
+handling. 
+*/
+		Form.entitySelection:=Address_getRecords
+		Form.collectionData:=ReadAddressDataFile
+		
 		//  these two collections are here to swap between a collection and record detail data
 		Form.es_properties:=New collection(Null; "street"; "city"; "state"; "zip")
 		Form.co_properties:=New collection(Null; "StreetAddress"; "City"; "State"; "ZipCode")
-		
 		
 	: ($objectName="btn_dataType")
 /* Toggles the data between entity selection and collection
@@ -219,9 +209,9 @@ End case
 //mark:  --- update state, formats, etc.
 OBJECT SET TITLE(*; "btn_dataType"; $address_LB.isEntitySelection ? "Entity Selection" : "Collection")
 // update a text variable showing the displayed state of the listbox
-OBJECT SET VALUE("address_LB_state"; $address_LB.get_shortDesc())
+OBJECT SET VALUE("address_LB_state"; $address_LB.shortDesc)
 // but we could use it for the window title too
-SET WINDOW TITLE($address_LB.get_shortDesc())
+SET WINDOW TITLE($address_LB.shortDesc)
 //  hide the detail listbox if there is no selected address
 OBJECT SET VISIBLE(*; "detail_LB"; $address_LB.isSelected)
 

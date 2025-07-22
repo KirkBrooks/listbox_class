@@ -1,5 +1,5 @@
 {
-	"Demo 1": {
+	"Demo 1 - entity selection or collection?": {
 		"methods": [
 			"Run_demo"
 		],
@@ -7,7 +7,7 @@
 			"demo_form"
 		]
 	},
-	"Demo 2": {
+	"Demo 2 - collection": {
 		"methods": [
 			"Run_demo2"
 		],

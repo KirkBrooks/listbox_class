@@ -174,9 +174,9 @@ End case
 //mark:  --- update state, formats, etc.
 
 // update a text variable showing the displayed state of the listbox
-OBJECT SET VALUE("address_LB_state"; $address_LB.get_shortDesc())
+OBJECT SET VALUE("address_LB_state"; $address_LB.shortDesc)
 // but we could use it for the window title too
-SET WINDOW TITLE($address_LB.get_shortDesc())
+SET WINDOW TITLE($address_LB.shortDesc)
 //  hide the detail listbox if there is no selected address
 OBJECT SET VISIBLE(*; "detail_LB"; $address_LB.isSelected)
 
